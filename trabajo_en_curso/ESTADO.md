@@ -9,7 +9,7 @@ Carpeta de trabajo para retomar el proyecto. No es un entregable del TFG: al ter
 | GEP1–GEP4 | Entregados | `Documentation/GEP/` |
 | Análisis y preparación (proceso de referencia, reglas R01–R07, guion de PoC PC01–PC07) | Terminado el 02/11/2026; el proceso sigue siendo una hipótesis | `Documentation/Docu_Final/Docu_Parcial/01_Analisis_y_preparacion.docx` |
 | Especificación (CU01–CU07, modelo conceptual, OCL01–OCL08, Volere, HU01–HU13, pruebas P01–P09) | Versión del 16/11/2026 | `Documentation/Docu_Final/Docu_Parcial/02_Especificacion.docx` |
-| Memoria | Borrador basado en el GEP4 ampliado | `Documentation/Docu_Final/Memoria/Memoria_TFG_Diego_Salas.docx` |
+| Memoria | Versión de trabajo en Google Docs (fuente principal); copia exportada en el repositorio. Especificación integrada como apartado 4 y sostenibilidad movida al 5 (16/11/2026); tablas renumeradas 1–40; bibliografía ampliada hasta [41] | `Documentation/Docu_Final/Memoria/Memoria_TFG_Diego_Salas.docx` |
 
 ## Hitos
 
@@ -27,8 +27,10 @@ Carpeta de trabajo para retomar el proyecto. No es un entregable del TFG: al ter
 ### Memoria
 - [ ] Cambiar la portada, que sigue siendo la del GEP4 («Entregable 4», 12/10/2026).
 - [ ] Redactar Resum, Resumen y Summary.
-- [ ] Bibliografía: añadir [31]–[33], que se citan pero no aparecen en la lista; revisar [14], [15], [21], [22] y [30], que están en la lista pero no se citan.
-- [ ] Numeración de tablas: hay dos «Tabla 6», y las páginas del índice de tablas no coinciden.
+- [ ] Bibliografía: añadir [31]–[33] (fuentes propuestas: Cornell Youth Safety, blog de BatOnRoute, Educación 3.0 sobre Qualla); revisar [14], [15], [21], [22] y [30], que están en la lista pero no se citan.
+- [x] Numeración de tablas corregida (1–40, sin duplicados).
+- [ ] Pegar las Figuras 3 y 4 (marcadores en amarillo en el apartado 4).
+- [ ] Actualizar el índice de contenidos y rellenar las páginas de los índices de tablas y figuras.
 - [ ] En 4.3, los 12.501,58 € son el coste del TFG, no el de una puesta en producción.
 - [ ] Añadir el estado del arte y los capítulos de análisis, diseño, implementación, pruebas y conclusiones.
 
