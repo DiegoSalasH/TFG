@@ -1,0 +1,25 @@
+# Archivos temporales de Office y del sistema
+~$*
+*.tmp
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Python
+.venv/
+__pycache__/
+
+# Prototipo SuiteCRM: dependencias, caché y configuración local
+SuiteCRM/**/vendor/
+SuiteCRM/**/node_modules/
+SuiteCRM/**/cache/
+SuiteCRM/**/*.env
+SuiteCRM/**/config_override.php
+
+# Volcados de base de datos y salidas de pruebas (pueden contener datos)
+*.sql
+*.sql.gz
+validacion/salida/
+
+# Configuración local
+.claude/settings.local.json
