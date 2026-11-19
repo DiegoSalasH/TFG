@@ -29,10 +29,21 @@ La plataforma candidata es **SuiteCRM 8** (matriz ponderada: 4,10 sobre 5, frent
 │   │   ├── Docu_Parcial/         Documentos intermedios (estado del arte, análisis, especificación)
 │   │   └── Memoria/              Memoria final del TFG
 │   └── Reuniones/                Actas de las reuniones con la directora
+├── generadores/                  Scripts que generan los diagramas de la memoria (Pillow + Lora)
 ├── SuiteCRM/                     Paquete de extensión «Gestión de Extraescolares» (prototipo)
 ├── validacion/                   Datos sintéticos, pruebas P01–P09 y resultados
-└── trabajo_en_curso/             Estado del trabajo y decisiones; no es un entregable
+├── trabajo_en_curso/             Estado del trabajo y decisiones semanales (weekN/); no es un entregable
+└── requirements.txt              Dependencias de Python
 ```
+
+## Entorno
+
+- **Python 3.12** en Windows: `python -m pip install -r requirements.txt`.
+- **SuiteCRM 8** en WSL2 con Ubuntu 24.04 (Apache, PHP y MariaDB).
+
+## Convención de commits
+
+`[TIPO] Week_N #issue: descripción en castellano, en infinitivo`. Los tipos son `IMP` (contenido o funcionalidad nueva), `FIX` (corrección) y `REF` (reorganización). Si el commit resuelve una issue, el cuerpo incluye `Closes #N`.
 
 ## Datos
 

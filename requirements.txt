@@ -1,0 +1,18 @@
+# Dependencias de Python del TFG (generadores de diagramas, datos sintéticos y validación)
+# Probado con Python 3.12.10 en Windows 10.
+# Instalar con: python -m pip install -r requirements.txt
+
+# Diagramas e imágenes
+Pillow>=13.0.0
+matplotlib>=3.11.2
+seaborn>=0.13.2
+
+# Datos, datos sintéticos y estadística
+pandas>=3.1.1
+numpy>=2.5.5
+scipy>=1.18.1
+Faker>=40.54.0
+
+# Utilidades
+requests>=2.34.2
+pytest>=9.2.0
