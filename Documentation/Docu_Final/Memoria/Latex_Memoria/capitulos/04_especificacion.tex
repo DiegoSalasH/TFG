@@ -1,0 +1,397 @@
+% Generado por trabajo_en_curso/week5/latex/convertir.py a partir del .docx de la memoria.
+% A partir de ahora este fichero es la fuente: edítalo directamente.
+
+\chapter{Especificación}\label{sec:4}
+
+Este apartado especifica el producto mínimo del TFG para la gestión segura de actividades extraescolares de primaria. Toma como línea base los requisitos del apartado~\ref{sec:1-3-4} y concreta el comportamiento del sistema mediante casos de uso~\cite{ref36}, un modelo conceptual en UML~\cite{ref35}, restricciones de integridad en OCL~\cite{ref34}, plantillas Volere para los requisitos no funcionales~\cite{ref37}, historias de usuario~\cite{ref38} y pruebas. Todos los ejemplos de validación usan datos sintéticos.
+
+La especificación cubre la información de alumnos, contactos y autorizaciones; la preparación de sesiones; el registro de asistencia; la custodia y entrega; la gestión y comunicación de incidencias; y la consulta de historial con control de permisos. RF08 y RF09 se mantienen como incrementos posteriores: intercambio CSV autorizado, indicadores agregados y un portal familiar limitado.
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.487\hsize\raggedright\arraybackslash}X>{\hsize=1.513\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Elemento} & \textbf{Tratamiento en la especificación} \\
+\midrule
+Requisitos funcionales & Se detallan en casos de uso, historias de usuario, modelo conceptual y restricciones OCL. \\
+Requisitos no funcionales & Se detallan mediante fichas Volere con criterio de aceptación y método de evaluación. \\
+Validación & Se define una evidencia por requisito con escenarios sintéticos y perfiles incompatibles. \\
+\bottomrule
+\end{tabularx}
+\caption{Enfoque de especificación}\label{tab:23}
+\end{table}
+
+\needspace{6\baselineskip}
+\section{Modelo de casos de uso}\label{sec:4-1}
+
+El modelo recoge los actores operativos del centro. Administración prepara los datos de alumnos e inscripciones; el monitor registra los hechos de la sesión; coordinación resuelve excepciones, incidencias y comunicaciones; y dirección consulta únicamente la información escalada o agregada. La familia participa como destinataria autorizada de comunicaciones y como fuente de actualización de autorizaciones, sin acceso a información ajena.
+
+\begin{figure}[htbp]
+\centering
+\figurapendiente{Insertar aquí la Figura 3: diagrama de casos de uso}
+\caption{Diagrama de casos de uso del sistema}\label{fig:3}
+\end{figure}
+
+Los casos de uso se han agrupado de manera que cada requisito funcional obligatorio queda cubierto al menos una vez. La gestión de autorización prepara el control de custodia; la sesión genera la lista de asistencia; y una incidencia puede desencadenar una comunicación controlada.
+
+\needspace{14\baselineskip}
+\subsection{Casos de uso, actores y requisitos cubiertos}\label{sec:4-1-1}
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.420\hsize\raggedright\arraybackslash}X>{\hsize=1.635\hsize\raggedright\arraybackslash}X>{\hsize=1.246\hsize\raggedright\arraybackslash}X>{\hsize=0.700\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{ID} & \textbf{Caso de uso} & \textbf{Actor principal} & \textbf{Requisitos} \\
+\midrule
+CU01 & Gestionar ficha y autorizaciones & Administración / coordinación & RF01 \\
+CU02 & Preparar sesión y lista & Coordinación & RF02 \\
+CU03 & Registrar asistencia & Monitor & RF03 \\
+CU04 & Registrar entrega y custodia & Monitor & RF04 \\
+CU05 & Gestionar incidencia & Monitor / coordinación & RF05 \\
+CU06 & Comunicar incidencia & Coordinación & RF06 \\
+CU07 & Consultar historial autorizado & Coordinación / dirección & RF07 \\
+\bottomrule
+\end{tabularx}
+\caption{Casos de uso, actores y requisitos funcionales que cubren}\label{tab:24}
+\end{table}
+
+\needspace{6\baselineskip}
+\subsection{Descripción de los casos de uso}\label{sec:4-1-2}
+
+Cada caso de uso se describe con una ficha~\cite{ref36}. Las extensiones representan alternativas o errores que se apartan del flujo principal y se identifican con el número del paso al que sustituyen. Los flujos no sustituyen las reglas de autorización, que se verifican además con las restricciones OCL y las pruebas del apartado~\ref{sec:4-5}.
+
+\needspace{22\baselineskip}
+\subsubsection{CU01 Gestionar ficha y autorizaciones}\label{sec:4-1-2-1}
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.381\hsize\raggedright\arraybackslash}X>{\hsize=1.619\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Campo} & \textbf{Especificación} \\
+\midrule
+Actor principal & Administración \\
+Actor secundario & Coordinación; familia como origen de la información \\
+Precondición & El usuario dispone de permiso sobre el alumno o se trata de un alta nueva. \\
+Flujo principal & 1. El usuario crea o localiza la ficha del alumno. \newline 2. Registra o actualiza los contactos responsables. \newline 3. Registra la inscripción en una actividad y su estado. \newline 4. Añade una autorización de recogida con fechas de vigencia y estado. \newline 5. El sistema valida los campos obligatorios y guarda el cambio con autor y fecha. \\
+Extensiones & 4a. La fecha final es anterior a la inicial: el sistema informa del error y no guarda la autorización. \newline 5a. Falta identificador, nombre o contacto responsable: el sistema impide guardar la ficha. \\
+Postcondición & La ficha queda disponible para sesiones futuras; solo las autorizaciones activas y vigentes pueden usarse en una entrega. \\
+Requisitos & RF01, RNF01 \\
+\bottomrule
+\end{tabularx}
+\caption{Ficha del caso de uso CU01}\label{tab:25}
+\end{table}
+
+\needspace{21\baselineskip}
+\subsubsection{CU02 Preparar sesión y lista}\label{sec:4-1-2-2}
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.387\hsize\raggedright\arraybackslash}X>{\hsize=1.613\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Campo} & \textbf{Especificación} \\
+\midrule
+Actor principal & Coordinación \\
+Actor secundario & Monitor \\
+Precondición & La actividad, el grupo y las inscripciones existen y están actualizados. \\
+Flujo principal & 1. La coordinación selecciona actividad y grupo. \newline 2. Crea la sesión con fecha, hora de inicio y fin. \newline 3. El sistema valida que el inicio sea anterior al fin. \newline 4. El sistema genera la lista desde las inscripciones activas de la actividad. \newline 5. La coordinación publica la sesión para el monitor asignado. \\
+Extensiones & 3a. El intervalo de la sesión no es válido: el sistema no permite crearla. \newline 4a. Una inscripción está cancelada o pertenece a otra actividad: no se incorpora a la lista. \\
+Postcondición & La sesión queda preparada con una lista coherente de alumnos previstos. \\
+Requisitos & RF02, RNF01 \\
+\bottomrule
+\end{tabularx}
+\caption{Ficha del caso de uso CU02}\label{tab:26}
+\end{table}
+
+\needspace{21\baselineskip}
+\subsubsection{CU03 Registrar asistencia}\label{sec:4-1-2-3}
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.381\hsize\raggedright\arraybackslash}X>{\hsize=1.619\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Campo} & \textbf{Especificación} \\
+\midrule
+Actor principal & Monitor \\
+Actor secundario & Coordinación \\
+Precondición & Existe una sesión publicada, el monitor está asignado y el alumno figura en la lista. \\
+Flujo principal & 1. El monitor abre la sesión. \newline 2. Selecciona el estado de cada alumno: presente, ausente, retraso o ausencia justificada. \newline 3. Añade motivo cuando el estado lo requiere. \newline 4. El sistema registra hora y usuario. \newline 5. El monitor confirma el resumen de la sesión. \\
+Extensiones & 2a. Ya existe un registro para el mismo alumno y sesión: el sistema muestra el registro existente y permite una corrección trazable. \newline 3a. El estado requiere motivo y este falta: el sistema solicita completarlo. \\
+Postcondición & Cada alumno de la lista tiene un estado controlado y no hay duplicados activos para la misma sesión. \\
+Requisitos & RF03, RNF01, RNF03 \\
+\bottomrule
+\end{tabularx}
+\caption{Ficha del caso de uso CU03}\label{tab:27}
+\end{table}
+
+\needspace{22\baselineskip}
+\subsubsection{CU04 Registrar entrega y custodia}\label{sec:4-1-2-4}
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.381\hsize\raggedright\arraybackslash}X>{\hsize=1.619\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Campo} & \textbf{Especificación} \\
+\midrule
+Actor principal & Monitor \\
+Actor secundario & Coordinación; persona autorizada \\
+Precondición & La sesión ha finalizado o está en fase de entrega; el alumno figura como presente o requiere revisión. \\
+Flujo principal & 1. El monitor selecciona al alumno pendiente de entrega. \newline 2. Selecciona o identifica a la persona receptora. \newline 3. El sistema consulta una autorización activa y vigente para ese alumno. \newline 4. Comprueba que no existe otra entrega confirmada. \newline 5. Registra hora, responsable y resultado de la entrega. \newline 6. Muestra confirmación al monitor. \\
+Extensiones & 3a. La persona no está autorizada o la autorización está vencida: el sistema bloquea la entrega y registra la excepción. \newline 4a. Ya existe una entrega confirmada: el sistema impide una segunda confirmación y muestra el historial. \\
+Postcondición & La entrega autorizada queda asociada a alumno, sesión, receptor y responsable; una excepción queda escalada. \\
+Requisitos & RF04, RNF01, RNF03 \\
+\bottomrule
+\end{tabularx}
+\caption{Ficha del caso de uso CU04}\label{tab:28}
+\end{table}
+
+\needspace{22\baselineskip}
+\subsubsection{CU05 Gestionar incidencia}\label{sec:4-1-2-5}
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.381\hsize\raggedright\arraybackslash}X>{\hsize=1.619\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Campo} & \textbf{Especificación} \\
+\midrule
+Actor principal & Monitor \\
+Actor secundario & Coordinación; dirección si se escala \\
+Precondición & El usuario pertenece al ámbito de la actividad o sesión relacionada. \\
+Flujo principal & 1. El usuario abre una incidencia y selecciona tipo y prioridad. \newline 2. Describe el hecho de forma objetiva y lo vincula a alumno o sesión cuando procede. \newline 3. El sistema asigna estado inicial y conserva autor y fecha. \newline 4. Coordinación asigna responsable y registra la actuación o el escalado. \newline 5. Coordinación cierra la incidencia cuando la actuación está documentada. \\
+Extensiones & 2a. Falta la información mínima: el sistema solicita completar tipo, prioridad y descripción. \newline 5a. No existe responsable o actuación: el sistema no permite cerrar la incidencia. \\
+Postcondición & La incidencia mantiene su secuencia de estados, responsables y actuaciones. \\
+Requisitos & RF05, RNF01 \\
+\bottomrule
+\end{tabularx}
+\caption{Ficha del caso de uso CU05}\label{tab:29}
+\end{table}
+
+\needspace{21\baselineskip}
+\subsubsection{CU06 Comunicar incidencia}\label{sec:4-1-2-6}
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.381\hsize\raggedright\arraybackslash}X>{\hsize=1.619\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Campo} & \textbf{Especificación} \\
+\midrule
+Actor principal & Coordinación \\
+Actor secundario & Familia o persona autorizada \\
+Precondición & Existe una incidencia registrada y la coordinación tiene permiso para decidir la comunicación. \\
+Flujo principal & 1. Coordinación revisa prioridad, actuaciones y destinatarios posibles. \newline 2. Selecciona el destinatario autorizado y el canal permitido. \newline 3. Redacta o valida el mensaje con la información necesaria. \newline 4. El sistema registra el envío, la fecha y el usuario responsable. \newline 5. Registra el acuse cuando se recibe. \\
+Extensiones & 2a. El destinatario no está vinculado o autorizado: el sistema impide el envío. \newline 3a. El mensaje contiene datos fuera del ámbito: la coordinación debe revisarlo antes de confirmar. \\
+Postcondición & La comunicación queda vinculada a la incidencia y a un destinatario identificable. \\
+Requisitos & RF06, RNF01 \\
+\bottomrule
+\end{tabularx}
+\caption{Ficha del caso de uso CU06}\label{tab:30}
+\end{table}
+
+\needspace{24\baselineskip}
+\subsubsection{CU07 Consultar historial autorizado}\label{sec:4-1-2-7}
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.381\hsize\raggedright\arraybackslash}X>{\hsize=1.619\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Campo} & \textbf{Especificación} \\
+\midrule
+Actor principal & Coordinación \\
+Actor secundario & Dirección \\
+Precondición & El usuario ha iniciado sesión y posee rol y ámbito configurados. \\
+Flujo principal & 1. El usuario busca un alumno, sesión o incidencia dentro de su ámbito. \newline 2. El sistema comprueba el rol, la actividad y la finalidad de consulta. \newline 3. Recupera la secuencia de asistencia, custodia, incidencias y comunicaciones permitidas. \newline 4. El usuario consulta el detalle o solicita una exportación autorizada. \newline 5. El sistema conserva la acción de consulta o exportación en la auditoría. \\
+Extensiones & 2a. El usuario intenta acceder a un grupo ajeno: el sistema deniega el acceso. \newline 4a. La exportación contiene datos innecesarios: el sistema limita los campos al ámbito autorizado. \\
+Postcondición & El historial se muestra ordenado temporalmente y sin exponer datos ajenos. \\
+Requisitos & RF07, RNF01 \\
+\bottomrule
+\end{tabularx}
+\caption{Ficha del caso de uso CU07}\label{tab:31}
+\end{table}
+
+\needspace{6\baselineskip}
+\section{Modelo conceptual y restricciones de integridad}\label{sec:4-2}
+
+El modelo conceptual identifica la información mínima que debe configurarse o extenderse en el CRM. El alumno es la entidad protegida; las autorizaciones, inscripciones y eventos se vinculan a él para poder reconstruir el historial de cada sesión sin depender de conversaciones privadas o listas duplicadas.
+
+\begin{figure}[htbp]
+\centering
+\figurapendiente{Insertar aquí la Figura 4: modelo conceptual}
+\caption{Modelo conceptual de asistencia, custodia e incidencias}\label{fig:4}
+\end{figure}
+
+\needspace{19\baselineskip}
+\subsection{Diccionario de entidades}\label{sec:4-2-1}
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.673\hsize\raggedright\arraybackslash}X>{\hsize=1.294\hsize\raggedright\arraybackslash}X>{\hsize=1.033\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Entidad} & \textbf{Responsabilidad} & \textbf{Atributos críticos} \\
+\midrule
+Alumno & Sujeto protegido al que se asocian inscripciones y eventos. & Identificador, nombre, fecha de nacimiento. \\
+Autorización & Vincula alumno y contacto durante un periodo. & Estado, fecha inicial y fecha final. \\
+Sesión & Representa una instancia concreta de una actividad. & Inicio, fin, estado, grupo. \\
+Asistencia & Registra el estado del alumno en una sesión. & Estado, hora, autor, motivo. \\
+EntregaCustodia & Conserva evidencia de una entrega o excepción. & Hora, resultado, receptor, responsable. \\
+Incidencia & Gestiona un hecho relevante y sus actuaciones. & Tipo, prioridad, estado, responsable. \\
+Comunicación & Registra los avisos vinculados a una incidencia. & Canal, destinatario, envío, acuse. \\
+\bottomrule
+\end{tabularx}
+\caption{Diccionario de entidades}\label{tab:32}
+\end{table}
+
+\needspace{6\baselineskip}
+\subsection{Restricciones OCL propuestas}\label{sec:4-2-2}
+
+Las expresiones OCL~\cite{ref34} actúan como una especificación de integridad. Si la plataforma CRM no permite ejecutarlas de forma directa, se traducirán a validaciones de formulario, reglas de flujo o pruebas automatizadas equivalentes.
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.334\hsize\raggedright\arraybackslash}X>{\hsize=0.766\hsize\raggedright\arraybackslash}X>{\hsize=1.966\hsize\raggedright\arraybackslash}X>{\hsize=0.944\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{ID} & \textbf{Restricción} & \textbf{Expresión OCL} & \textbf{Finalidad} \\
+\midrule
+OCL01 & Periodo de autorización válido & {\footnotesize\ttfamily context Autorizacion} \newline {\footnotesize\ttfamily inv PeriodoValido:} \newline {\footnotesize\ttfamily self.validaDesde \textless{}= self.validaHasta} & Evita intervalos de autorización inconsistentes. \\
+OCL02 & Entrega con receptor autorizado & {\footnotesize\ttfamily context EntregaCustodia} \newline {\footnotesize\ttfamily inv ReceptorAutorizado:} \newline {\footnotesize\ttfamily self.resultado = \#Confirmada implies} \newline {\footnotesize\ttfamily Autorizacion.allInstances()-\textgreater{}exists(a |} \newline {\footnotesize\ttfamily a.alumno = self.alumno and a.contacto = self.receptor and} \newline {\footnotesize\ttfamily a.vigente(self.horaEntrega.toDate()))} & Una entrega confirmada exige autorización activa. \\
+OCL03 & Asistencia única por alumno y sesión & {\footnotesize\ttfamily context Asistencia} \newline {\footnotesize\ttfamily inv UnicaPorSesion:} \newline {\footnotesize\ttfamily Asistencia.allInstances()-\textgreater{}select(a |} \newline {\footnotesize\ttfamily a.alumno = self.alumno and a.sesion = self.sesion)-\textgreater{}size() = 1} & Impide duplicar asistencia para la misma pareja alumno-sesión. \\
+OCL04 & Entrega única confirmada & {\footnotesize\ttfamily context EntregaCustodia} \newline {\footnotesize\ttfamily inv UnaEntregaConfirmada:} \newline {\footnotesize\ttfamily EntregaCustodia.allInstances()-\textgreater{}select(e |} \newline {\footnotesize\ttfamily e.alumno = self.alumno and e.sesion = self.sesion and} \newline {\footnotesize\ttfamily e.resultado = \#Confirmada)-\textgreater{}size() \textless{}= 1} & Evita dos entregas confirmadas en la misma sesión. \\
+OCL05 & Cierre completo de incidencia & {\footnotesize\ttfamily context Incidencia} \newline {\footnotesize\ttfamily inv CierreConActuacion:} \newline {\footnotesize\ttfamily self.estado = \#Cerrada implies} \newline {\footnotesize\ttfamily self.responsable.oclIsUndefined() = false and} \newline {\footnotesize\ttfamily self.actuaciones-\textgreater{}notEmpty()} & Exige responsable y actuación antes del cierre. \\
+OCL06 & Ámbito del monitor & {\footnotesize\ttfamily context Usuario} \newline {\footnotesize\ttfamily inv AccesoMonitorRestringido:} \newline {\footnotesize\ttfamily self.rol = \#Monitor implies} \newline {\footnotesize\ttfamily self.actividadesAsignadas-\textgreater{}notEmpty()} & Complementa la regla de consulta que restringe el ámbito del monitor. \\
+OCL07 & Intervalo de sesión válido & {\footnotesize\ttfamily context Sesion} \newline {\footnotesize\ttfamily inv IntervaloValido:} \newline {\footnotesize\ttfamily self.inicio \textless{} self.fin} & Evita sesiones sin duración positiva. \\
+OCL08 & Comunicación con destinatario & {\footnotesize\ttfamily context Comunicacion} \newline {\footnotesize\ttfamily inv DestinatarioObligatorio:} \newline {\footnotesize\ttfamily self.enviadaEn.oclIsUndefined() = false implies} \newline {\footnotesize\ttfamily self.destinatario.oclIsUndefined() = false and} \newline {\footnotesize\ttfamily self.incidencia.oclIsUndefined() = false} & Vincula el aviso enviado con una incidencia y destinatario. \\
+\bottomrule
+\end{tabularx}
+\caption{Restricciones OCL propuestas}\label{tab:33}
+\end{table}
+
+\needspace{6\baselineskip}
+\section{Especificación de requisitos no funcionales}\label{sec:4-3}
+
+Los requisitos no funcionales se especifican con una versión reducida de la plantilla Volere~\cite{ref37}. Cada ficha relaciona el requisito con una característica de calidad de ISO/IEC 25010~\cite{ref12}, explica por qué es necesario, fija un criterio de aceptación y define cómo se comprobará. Los requisitos funcionales se concretan en los casos de uso del apartado~\ref{sec:4-1}.
+
+\needspace{17\baselineskip}
+\subsection{RNF01 Seguridad y privacidad}\label{sec:4-3-1}
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.385\hsize\raggedright\arraybackslash}X>{\hsize=1.615\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Campo} & \textbf{Especificación} \\
+\midrule
+Requisito de calidad & Seguridad (confidencialidad, integridad y trazabilidad). \\
+Descripción & El prototipo utiliza autenticación individual, mínimo privilegio, HTTPS en el despliegue y auditoría de acciones sensibles. \\
+Justificación & El sistema trata datos de menores y de personas autorizadas; una consulta o exportación sin control puede exponer información que no corresponde al usuario~\cite{ref02,ref03}. \\
+Criterio de aceptación & Prueba de acceso con perfiles incompatibles y revisión de los registros de auditoría y exportaciones. No se usan datos reales de menores. \\
+Método de evaluación & Escenarios de acceso indebido, revisión de roles y comprobación de que cada acción sensible conserva autor, fecha y hora. \\
+\bottomrule
+\end{tabularx}
+\caption{Ficha Volere del requisito RNF01}\label{tab:34}
+\end{table}
+
+\needspace{17\baselineskip}
+\subsection{RNF02 Rendimiento, recuperación y mantenibilidad}\label{sec:4-3-2}
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.381\hsize\raggedright\arraybackslash}X>{\hsize=1.619\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Campo} & \textbf{Especificación} \\
+\midrule
+Requisito de calidad & Eficiencia de desempeño, fiabilidad y mantenibilidad. \\
+Descripción & El 95 \% de operaciones de consulta y registro responde en menos de dos segundos con un conjunto sintético de hasta 10.000 alumnos; se documenta una copia, una restauración y el versionado de extensiones. \\
+Justificación & El monitor debe registrar asistencia y custodia durante una franja de tiempo limitada. Una recuperación no probada o una extensión sin versión dificulta mantener la solución. \\
+Criterio de aceptación & El 95 \% de operaciones medidas cumple el umbral; la restauración de prueba recupera los datos sintéticos y existe una guía de instalación o configuración. \\
+Método de evaluación & Prueba de carga, medición de tiempos, restauración en entorno de prueba y revisión del repositorio o registro de versiones. \\
+\bottomrule
+\end{tabularx}
+\caption{Ficha Volere del requisito RNF02}\label{tab:35}
+\end{table}
+
+\needspace{17\baselineskip}
+\subsection{RNF03 Usabilidad y accesibilidad}\label{sec:4-3-3}
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.381\hsize\raggedright\arraybackslash}X>{\hsize=1.619\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Campo} & \textbf{Especificación} \\
+\midrule
+Requisito de calidad & Usabilidad (operabilidad y accesibilidad). \\
+Descripción & El registro de asistencia y entrega puede completarse en tres acciones principales o menos; la interfaz cumple WCAG 2.2 AA~\cite{ref39} cuando corresponda. \\
+Justificación & Los monitores pueden tener poca experiencia con un CRM y trabajan al final de la jornada escolar. Una interfaz lenta o confusa aumenta el riesgo de registros erróneos. \\
+Criterio de aceptación & Las tareas definidas se completan con éxito y la puntuación SUS~\cite{ref40} media es igual o superior a 68~\cite{ref41}; no se detectan incumplimientos críticos de accesibilidad aplicables. \\
+Método de evaluación & Prueba de tareas con perfiles representativos, cuestionario SUS y revisión heurística y de contraste de la interfaz. \\
+\bottomrule
+\end{tabularx}
+\caption{Ficha Volere del requisito RNF03}\label{tab:36}
+\end{table}
+
+\needspace{6\baselineskip}
+\section{Historias de usuario}\label{sec:4-4}
+
+Las historias de usuario~\cite{ref38} convierten los requisitos y casos de uso en elementos verificables del backlog. La trazabilidad indica el caso de uso, los requisitos relacionados y la prioridad definida en el apartado~\ref{sec:1-3-4}. Los criterios de aceptación se comprobarán con las pruebas del apartado~\ref{sec:4-5}.
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.200\hsize\raggedright\arraybackslash}X>{\hsize=2.194\hsize\raggedright\arraybackslash}X>{\hsize=0.606\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{ID} & \textbf{Historia y criterio de aceptación} & \textbf{Trazabilidad} \\
+\midrule
+HU01 & Como personal de administración, quiero crear o actualizar la ficha de un alumno y sus contactos para evitar listas separadas. \newline Criterio de aceptación: No se guarda una ficha sin identificador, nombre ni contacto responsable. & CU01 · RF01 · M \\
+HU02 & Como coordinación, quiero registrar una autorización con vigencia para identificar quién puede recoger al alumno. \newline Criterio de aceptación: Una autorización vencida o revocada no aparece como válida en la entrega. & CU01 · RF01 · M \\
+HU03 & Como coordinación, quiero crear una sesión y generar su lista desde las inscripciones activas. \newline Criterio de aceptación: La lista excluye inscripciones canceladas y alumnos de otra actividad. & CU02 · RF02 · M \\
+HU04 & Como monitor, quiero registrar presencia, ausencia, retraso o ausencia justificada con motivo. \newline Criterio de aceptación: El registro conserva estado, hora y usuario; no hay duplicados por alumno y sesión. & CU03 · RF03 · M \\
+HU05 & Como monitor, quiero seleccionar una persona autorizada al finalizar una sesión para registrar una entrega segura. \newline Criterio de aceptación: La entrega queda asociada a sesión, alumno, receptor, hora y responsable. & CU04 · RF04 · M \\
+HU06 & Como monitor, quiero bloquear una persona no autorizada y escalar el caso sin decidirlo de forma autónoma. \newline Criterio de aceptación: No se confirma la entrega; la excepción queda registrada y escalada. & CU04 · RF04 · M \\
+HU07 & Como monitor, quiero abrir una incidencia con tipo, prioridad y descripción objetiva. \newline Criterio de aceptación: No se permite cerrar sin estado, responsable y actuación registrada. & CU05 · RF05 · M \\
+\bottomrule
+\end{tabularx}
+\caption{Historias de usuario, parte 1}\label{tab:37}
+\end{table}
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.200\hsize\raggedright\arraybackslash}X>{\hsize=2.194\hsize\raggedright\arraybackslash}X>{\hsize=0.606\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{ID} & \textbf{Historia y criterio de aceptación} & \textbf{Trazabilidad} \\
+\midrule
+HU08 & Como coordinación, quiero registrar la actuación y el escalado de una incidencia. \newline Criterio de aceptación: El cierre exige responsable y actuación documentada. & CU05 · RF05 · M \\
+HU09 & Como coordinación, quiero decidir y dejar constancia de la comunicación de una incidencia. \newline Criterio de aceptación: La comunicación registra destinatario, canal, envío y acuse cuando exista. & CU06 · RF06 · M \\
+HU10 & Como coordinación, quiero reconstruir la secuencia de una sesión ante una consulta. \newline Criterio de aceptación: El historial muestra asistencia, entrega, incidencias y autores en orden temporal. & CU07 · RF07 · M \\
+HU11 & Como monitor, quiero limitar mi acceso a los grupos asignados para proteger datos de menores. \newline Criterio de aceptación: Un monitor ajeno recibe acceso denegado y queda auditoría. & CU07 · RF07 · M \\
+HU12 & Como personal de administración, quiero importar un CSV validado y exportar solo el ámbito autorizado. \newline Criterio de aceptación: Se informan errores de filas y la exportación respeta permisos. & Incremento · RF08 · S \\
+HU13 & Como familiar autorizado, quiero consultar la información permitida de mi menor. \newline Criterio de aceptación: La vista no muestra información de otros alumnos ni incidencias no autorizadas. & Incremento · RF09 · C \\
+\bottomrule
+\end{tabularx}
+\caption{Historias de usuario, parte 2}\label{tab:38}
+\end{table}
+
+\needspace{6\baselineskip}
+\section{Diseño de validación y trazabilidad}\label{sec:4-5}
+
+La matriz relaciona cada requisito del producto mínimo con una evidencia comprobable. Las pruebas se ejecutarán con datos sintéticos y registrarán fecha, versión, resultado esperado, resultado obtenido y defecto asociado cuando corresponda.
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.747\hsize\raggedright\arraybackslash}X>{\hsize=0.747\hsize\raggedright\arraybackslash}X>{\hsize=1.231\hsize\raggedright\arraybackslash}X>{\hsize=1.275\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Prueba} & \textbf{Cobertura} & \textbf{Datos de prueba} & \textbf{Resultado esperado} \\
+\midrule
+P01 Alta y vigencia & RF01, HU01-HU02, OCL01 & Alumno, contacto y autorizaciones activa, vencida y revocada. & Solo la autorización activa puede seleccionarse en la fecha de entrega. \\
+P02 Sesión y lista & RF02, HU03, OCL07 & Actividad, sesión válida e inscripciones activa y cancelada. & La lista contiene solo inscripciones activas y el intervalo es válido. \\
+P03 Asistencia & RF03, HU04, OCL03 & Sesión, alumno activo e intento de registro duplicado. & Existe un único registro con estado, hora, autor y motivo. \\
+P04 Entrega autorizada & RF04, HU05, OCL02, OCL04 & Alumno presente y receptor autorizado vigente. & Entrega confirmada una vez y con evidencia completa. \\
+P05 Excepción de entrega & RF04, HU06 & Receptor no autorizado o autorización vencida. & Entrega bloqueada, excepción registrada y escalada. \\
+P06 Incidencia & RF05, HU07-HU08, OCL05 & Incidencia prioritaria e intento de cierre sin actuación. & El cierre se rechaza hasta registrar responsable y actuación. \\
+P07 Comunicación & RF06, HU09, OCL08 & Incidencia registrada y destinatarios autorizado y no autorizado. & Solo se envía al destinatario válido y queda trazabilidad. \\
+P08 Permisos & RF07, HU10-HU11, OCL06 & Dos monitores con grupos distintos y perfil de coordinación. & Acceso ajeno denegado y consulta autorizada auditada. \\
+P09 Calidad e incrementos & RNF01-RNF03, RF08-RF09, HU12-HU13 & Carga sintética, exportación, prueba de tareas y accesos. & Métricas, accesos y resultados de tareas documentados. \\
+\bottomrule
+\end{tabularx}
+\caption{Matriz de pruebas y evidencias}\label{tab:39}
+\end{table}
+
+\needspace{6\baselineskip}
+\subsection{Criterio de aceptación del prototipo}\label{sec:4-5-1}
+
+El producto mínimo será aceptable si RF01-RF07 dispone de evidencia de prueba superada, no existen defectos críticos abiertos, los perfiles incompatibles no acceden a datos ajenos y las restricciones de sesión, asistencia, entrega, incidencia y comunicación se cumplen en escenarios sintéticos. RF08 y RF09 podrán quedar como incremento posterior si no es posible validarlos con el mismo rigor dentro del calendario del TFG.
+

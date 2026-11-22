@@ -1,0 +1,209 @@
+% Generado por trabajo_en_curso/week5/latex/convertir.py a partir del .docx de la memoria.
+% A partir de ahora este fichero es la fuente: edítalo directamente.
+
+\chapter{Presupuesto}\label{sec:3}
+
+\needspace{6\baselineskip}
+\section{Objeto, criterios y base de cálculo}\label{sec:3-1}
+
+\needspace{6\baselineskip}
+\subsection{Hipótesis de trabajo}\label{sec:3-1-1}
+
+El presupuesto global contempla las 540 horas de referencia del TFG. Se compone de 90 horas ya realizadas en las entregas GEP, 405 horas de trabajo base del 19 de octubre de 2026 al 10 de enero de 2027 y 45 horas de contingencia posterior a GEP. Por tanto, se presupuestan tanto las actividades GEP como todas las tareas T1–T16 del Gantt. No se añaden servicios de producción.
+
+El prototipo se ejecutará en el ordenador propio HP Desktop M01-f0xxx, en un entorno local y con datos sintéticos. SuiteCRM, el sistema operativo y las herramientas de desarrollo no requieren licencia de pago para este uso. El presupuesto sí imputa de manera proporcional el equipo, la conectividad, electricidad, copia externa, espacio de trabajo y consumibles. No se incluye despliegue real, mensajería SMS, almacenamiento de datos de menores ni integración con sistemas del centro. Estas decisiones delimitan tanto el coste como los efectos de sostenibilidad.
+
+\needspace{6\baselineskip}
+\subsection{Método de estimación}\label{sec:3-1-2}
+
+La estimación es de abajo arriba: a cada tarea del Gantt y a cada actividad GEP se le asignan horas, perfil principal y tarifa imputable. Para no confundir un TFG individual con trabajo gratuito, se usa el coste de perfiles profesionales equivalentes. Las tarifas parten de referencias salariales de Glassdoor y se convierten en coste empresarial aplicando un factor de 1,30 al sueldo bruto por hora para cubrir cotizaciones y costes sociales, siguiendo el criterio del módulo de gestión económica~\cite{ref23,ref24}.
+
+El coste de la reserva de contingencia se mantiene separado de los riesgos identificados. La contingencia cubre variaciones ordinarias de estimación; los imprevistos se calculan como probabilidad por coste del plan B. No se añade IVA: el resultado es un coste interno de proyecto, no un presupuesto comercial.
+
+\needspace{6\baselineskip}
+\section{Presupuesto del proyecto}\label{sec:3-2}
+
+\needspace{6\baselineskip}
+\subsection{Costes de personal y criterio salarial}\label{sec:3-2-1}
+
+Se consideran cinco perfiles equivalentes, aunque una sola persona pueda asumirlos en el contexto académico. La distinción permite valorar adecuadamente la naturaleza de cada actividad y facilita el seguimiento por tipo de trabajo. Las referencias salariales se consultaron el 2 de octubre de 2026; se toma una jornada anual de 1.760 horas para convertir el salario anual en coste bruto horario.
+
+\begin{table}[H]
+\centering\footnotesize
+\begin{tabularx}{\textwidth}{>{\hsize=1.138\hsize\raggedright\arraybackslash}X>{\hsize=1.621\hsize\raggedright\arraybackslash}X>{\hsize=0.526\hsize\raggedright\arraybackslash}X>{\hsize=0.619\hsize\raggedright\arraybackslash}X>{\hsize=0.896\hsize\raggedright\arraybackslash}X>{\hsize=1.221\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Perfil equivalente} & \textbf{Referencia salarial} & \textbf{Bruto €/h} & \textbf{Factor} & \textbf{Tarifa imputable €/h} & \textbf{Uso principal} \\
+\midrule
+Coordinación del proyecto & Technical Project Manager, Barcelona: 22 €/h~\cite{ref25} & 22,00 & $\times$ 1,30 & 28,60 & Planificación, control y cierre \\
+Análisis funcional & Referencia conservadora entre perfiles TIC junior de Glassdoor~\cite{ref26} & 16,50 & $\times$ 1,30 & 21,45 & Procesos, requisitos, datos y selección \\
+Desarrollo CRM & Salesforce Developer, Barcelona: 18 €/h~\cite{ref27} & 18,00 & $\times$ 1,30 & 23,40 & Configuración y extensiones SuiteCRM \\
+Pruebas & QA Automation Tester, España: 13 €/h~\cite{ref28} & 13,00 & $\times$ 1,30 & 16,90 & Casos de prueba y validación \\
+Documentación técnica & Tarifa equivalente a perfil TIC junior~\cite{ref26} & 16,00 & $\times$ 1,30 & 20,80 & Memoria, anexos y guía de uso \\
+\bottomrule
+\end{tabularx}
+\caption{Perfiles y tarifas imputables}\label{tab:15}
+\end{table}
+
+La tarifa de análisis funcional y documentación se sitúa deliberadamente en un nivel junior y se justifica por la naturaleza académica del prototipo. No se utiliza el precio por hora de una consultora, que incluiría margen comercial y no refleja el coste interno requerido por esta entrega.
+
+\needspace{6\baselineskip}
+\subsection{Coste directo por tarea del Gantt}\label{sec:3-2-2}
+
+Las tablas siguientes establecen la trazabilidad entre las actividades GEP, la planificación del GEP 2 y el presupuesto. Cada actividad se asigna a un único perfil predominante para evitar doble contabilización. Las horas base suman 495; las 45 horas de reserva posterior a GEP se muestran posteriormente como partida independiente.
+
+\begin{table}[H]
+\centering\footnotesize
+\begin{tabularx}{\textwidth}{>{\hsize=0.477\hsize\raggedright\arraybackslash}X>{\hsize=2.472\hsize\raggedright\arraybackslash}X>{\hsize=1.057\hsize\raggedright\arraybackslash}X>{\hsize=0.526\hsize\raggedright\arraybackslash}X>{\hsize=0.676\hsize\raggedright\arraybackslash}X>{\hsize=0.791\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{ID} & \textbf{Actividad planificada} & \textbf{Perfil} & \textbf{Horas} & \textbf{€/h} & \textbf{Coste} \\
+\midrule
+T1 & Planificación y seguimiento & Coordinación & 25 & 28,60 & 715,00 \\
+T2 & Actores y casos de uso & Análisis & 18 & 21,45 & 386,10 \\
+T3 & Proceso, requisitos y protección de datos & Análisis & 28 & 21,45 & 600,60 \\
+T4 & Criterios, preselección y POC & Análisis & 16 & 21,45 & 343,20 \\
+T5 & Comparativa y selección CRM & Análisis & 16 & 21,45 & 343,20 \\
+T6 & Datos, roles y trazabilidad & Análisis & 30 & 21,45 & 643,50 \\
+T7 & Entorno y configuración base & Desarrollo & 22 & 23,40 & 514,80 \\
+T8 & Módulo de asistencia & Desarrollo & 30 & 23,40 & 702,00 \\
+\bottomrule
+\end{tabularx}
+\caption{Coste directo por tarea del Gantt (parte 1)}\label{tab:16}
+\end{table}
+
+\begin{table}[H]
+\centering\footnotesize
+\begin{tabularx}{\textwidth}{>{\hsize=0.482\hsize\raggedright\arraybackslash}X>{\hsize=2.401\hsize\raggedright\arraybackslash}X>{\hsize=1.138\hsize\raggedright\arraybackslash}X>{\hsize=0.526\hsize\raggedright\arraybackslash}X>{\hsize=0.632\hsize\raggedright\arraybackslash}X>{\hsize=0.821\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{ID} & \textbf{Actividad planificada} & \textbf{Perfil} & \textbf{Horas} & \textbf{€/h} & \textbf{Coste} \\
+\midrule
+T9 & Custodia y autorizaciones & Desarrollo & 36 & 23,40 & 842,40 \\
+T10 & Incidencias, prioridad y escalado & Desarrollo & 30 & 23,40 & 702,00 \\
+T11 & Diseño de pruebas y datos sintéticos & Pruebas & 20 & 16,90 & 338,00 \\
+T12 & Ejecución de pruebas y correcciones & Pruebas & 28 & 16,90 & 473,20 \\
+T13 & Validación funcional & Pruebas & 14 & 16,90 & 236,60 \\
+T14 & Documentación continua & Documentación & 32 & 20,80 & 665,60 \\
+T15 & Memoria, anexos y guía & Documentación & 45 & 20,80 & 936,00 \\
+T16 & Revisión, entrega y defensa & Documentación & 15 & 20,80 & 312,00 \\
+ & TOTAL POST-GEP &  & 405 &  & 8.754,20 \\
+\bottomrule
+\end{tabularx}
+\caption{Coste directo por tarea del Gantt (parte 2)}\label{tab:17}
+\end{table}
+
+El coste directo posterior a GEP es 8.754,20 €. Las actividades GEP ya realizadas se incorporan de forma retrospectiva para reflejar las 540 horas completas del TFG. El coste directo total asciende a 10.879,70 €. El mayor esfuerzo posterior a GEP corresponde al desarrollo de los tres módulos (2.761,20 €) y al análisis, procesos y decisión de CRM (2.316,60 €), coherente con un producto que configura procesos sensibles de menores y sus controles.
+
+\begin{table}[H]
+\centering\footnotesize
+\begin{tabularx}{\textwidth}{>{\hsize=0.469\hsize\raggedright\arraybackslash}X>{\hsize=2.473\hsize\raggedright\arraybackslash}X>{\hsize=1.138\hsize\raggedright\arraybackslash}X>{\hsize=0.526\hsize\raggedright\arraybackslash}X>{\hsize=0.476\hsize\raggedright\arraybackslash}X>{\hsize=0.918\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{ID} & \textbf{Actividad ya realizada} & \textbf{Perfil} & \textbf{Horas} & \textbf{€/h} & \textbf{Coste (€)} \\
+\midrule
+GEP1 & Contexto, alcance y selección & Análisis funcional & 30 & 21,45 & 643,50 \\
+GEP2 & Planificación, Gantt y riesgos & Coordinación & 30 & 28,60 & 858,00 \\
+GEP3 & Presupuesto, control y sostenibilidad & Documentación técnica & 30 & 20,80 & 624,00 \\
+ & TOTAL ACTIVIDADES GEP &  & 90 &  & 2.125,50 \\
+ & TOTAL COSTE DIRECTO GLOBAL &  & 495 &  & 10.879,70 \\
+\bottomrule
+\end{tabularx}
+\caption{Coste de las actividades GEP y coste directo global}\label{tab:18}
+\end{table}
+
+\needspace{6\baselineskip}
+\subsection{Costes generales del prototipo}\label{sec:3-2-3}
+
+Los costes generales recogen recursos que no se asignan a una tarea concreta. El equipo se amortiza linealmente durante cuatro años, de forma proporcional a las 495 horas base del TFG. También se imputan de manera conservadora la conectividad, electricidad, copia externa, espacio de trabajo y consumibles. El software tiene coste de licencia nulo al usarse soluciones libres o ya disponibles; ello no elimina el esfuerzo de configuración, que ya figura como coste de personal.
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=1.157\hsize\raggedright\arraybackslash}X>{\hsize=1.400\hsize\raggedright\arraybackslash}X>{\hsize=0.443\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Concepto} & \textbf{Cálculo} & \textbf{Coste (€)} \\
+\midrule
+Ordenador (amortización) & 900 € / (4 años $\times$ 1.760 h) $\times$ 495 h & 63,28 \\
+Conectividad doméstica & 20 €/mes $\times$ 4 meses & 80,00 \\
+Electricidad & 0,060 kW $\times$ 495 h $\times$ 0,2074 €/kWh~\cite{ref29} & 6,16 \\
+Copia de seguridad externa & 5 €/mes $\times$ 4 meses & 20,00 \\
+Licencias SuiteCRM y herramientas & Software libre / herramientas ya disponibles & 0,00 \\
+Espacio de trabajo & 25 €/mes $\times$ 4 meses (imputación proporcional) & 100,00 \\
+Consumibles & Estimación fija del periodo & 10,00 \\
+TOTAL COSTES GENERALES &  & 279,44 \\
+\bottomrule
+\end{tabularx}
+\caption{Costes generales del prototipo}\label{tab:19}
+\end{table}
+
+La reserva de contingencia mantiene 45 horas, pues corresponde al trabajo posterior a GEP todavía pendiente. Equivale al 11,1 \% de las 405 horas posteriores a GEP y al 9,1 \% de las 495 horas base globales. Para valorarla se aplica el coste medio ponderado del personal de todo el TFG: 10.879,70 € / 495 h = 21,98 €/h. Esta reserva se sitúa dentro de la recomendación habitual del 10–20 \% para proyectos informáticos~\cite{ref23}.
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=1.263\hsize\raggedright\arraybackslash}X>{\hsize=1.301\hsize\raggedright\arraybackslash}X>{\hsize=0.437\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Partida} & \textbf{Base de cálculo} & \textbf{Coste (€)} \\
+\midrule
+Contingencia genérica & 45 h $\times$ 21,98 €/h & 989,10 \\
+R1. Ajuste de requisitos & 30 \% $\times$ (12 h de análisis $\times$ 21,45 €/h) & 77,22 \\
+R2. Complejidad de personalización & 35 \% $\times$ (16 h de desarrollo $\times$ 23,40 €/h) & 131,04 \\
+R3. Repetición de pruebas & 45 \% $\times$ (8 h de pruebas $\times$ 16,90 €/h) & 60,84 \\
+R4. Correcciones de documentación & 40 \% $\times$ (9 h de desarrollo $\times$ 23,40 €/h) & 84,24 \\
+TOTAL IMPREVISTOS ESPECÍFICOS &  & 353,34 \\
+\bottomrule
+\end{tabularx}
+\caption{Contingencia e imprevistos específicos}\label{tab:20}
+\end{table}
+
+Los riesgos R1–R4 proceden del registro de riesgos y de los planes B asociados al GEP 2. Su importe no se suma a las horas de trabajo planificadas: se trata de una provisión esperada que solo se consumiría si se materializa el evento. Antes de usarla se revisará que no pueda absorberse con la contingencia general.
+
+\needspace{11\baselineskip}
+\subsection{Resumen presupuestario}\label{sec:3-2-4}
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=1.477\hsize\raggedright\arraybackslash}X>{\hsize=0.817\hsize\raggedright\arraybackslash}X>{\hsize=0.706\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Bloque} & \textbf{Coste (€)} & \textbf{Peso} \\
+\midrule
+Personal directo & 10.879,70 & 87,03 \% \\
+Costes generales & 279,44 & 2,24 \% \\
+Contingencia genérica & 989,10 & 7,91 \% \\
+Imprevistos específicos & 353,34 & 2,83 \% \\
+TOTAL PRESUPUESTO & 12.501,58 & 100,00 \% \\
+\bottomrule
+\end{tabularx}
+\caption{Resumen presupuestario global}\label{tab:21}
+\end{table}
+
+El presupuesto global asciende a 12.501,58 €. La cifra incorpora las 540 horas de referencia del TFG y permite valorar la viabilidad del alcance como coste profesional equivalente. Para un centro escolar, una adopción real requeriría un presupuesto adicional de producción —hosting, soporte, formación, evaluación de protección de datos e integración— que queda expresamente fuera del TFG.
+
+\needspace{6\baselineskip}
+\section{Seguimiento y control económico}\label{sec:3-3}
+
+El control se realizará semanalmente junto con la actualización del Gantt. Cada viernes registraré horas reales, coste real, tareas completadas, consumo de reserva y cambios en riesgos. El registro separará coste directo, costes generales, contingencia e imprevistos para que una desviación no quede oculta dentro del total.
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.819\hsize\raggedright\arraybackslash}X>{\hsize=1.043\hsize\raggedright\arraybackslash}X>{\hsize=1.138\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Indicador} & \textbf{Fórmula} & \textbf{Umbral y acción} \\
+\midrule
+Coste planificado (CP) & $\Sigma$ horas planificadas ejecutadas $\times$ tarifa & Referencia de cada semana \\
+Coste real (CR) & $\Sigma$ horas reales $\times$ tarifa + gastos reales & Se actualiza semanalmente \\
+Desviación absoluta & CR $-$ CP & Amarillo: \textgreater{} 5 \% del CP; rojo: \textgreater{} 10 \% \\
+Desviación porcentual & (CR $-$ CP) / CP $\times$ 100 & Analizar causa y estimar cierre \\
+Consumo de contingencia & Horas de reserva usadas / 45 h & Revisión obligatoria al superar 50 \% \\
+Riesgo esperado pendiente & $\Sigma$ probabilidad $\times$ coste plan B & Actualizar al cambiar probabilidad \\
+Previsión a término & CR acumulado + coste pendiente estimado & No superar 12.501,58 € sin decisión \\
+\bottomrule
+\end{tabularx}
+\caption{Indicadores de control económico}\label{tab:22}
+\end{table}
+
+\needspace{6\baselineskip}
+\subsection{Mecanismo de decisión}\label{sec:3-3-1}
+
+Una desviación inferior al 5 \% se documentará sin modificar la línea base. Entre el 5 \% y el 10 \% revisaré la estimación de las tareas pendientes y priorizaré entregables del alcance mínimo. Si la previsión supera el 10 \% o se consume más de la mitad de la contingencia antes de T12, prepararé una propuesta de reajuste para la directora: reasignar horas, reducir trabajo no esencial o aprobar el uso de una partida de imprevistos. Ninguna partida de riesgo se utilizará para trabajo ordinario.
+
+\needspace{6\baselineskip}
+\subsection{Evidencias de control}\label{sec:3-3-2}
+
+Conservaré una hoja de cálculo de control con fecha, tarea, horas previstas y reales, perfil, coste, incidencia, decisión y responsable. Junto a ella, el Gantt actualizado y el registro de riesgos permitirán explicar la variación entre presupuesto y ejecución. Al cierre, compararé coste final, coste previsto y reserva consumida para evaluar la calidad de la estimación.
+

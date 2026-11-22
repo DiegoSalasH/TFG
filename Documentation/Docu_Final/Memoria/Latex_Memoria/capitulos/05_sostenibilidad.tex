@@ -1,0 +1,75 @@
+% Generado por trabajo_en_curso/week5/latex/convertir.py a partir del .docx de la memoria.
+% A partir de ahora este fichero es la fuente: edítalo directamente.
+
+\chapter{Informe inicial de sostenibilidad}\label{sec:5}
+
+\needspace{6\baselineskip}
+\section{Método de elaboración del informe}\label{sec:5-1}
+
+El informe se elabora como una evaluación inicial, no como una certificación de sostenibilidad. Para cada dimensión se han seguido tres pasos: identificar el efecto relevante del prototipo o de una futura implantación; relacionarlo con una evidencia del proyecto —presupuesto, requisitos, riesgos o proceso de referencia—; y señalar un indicador que permita comprobarlo al finalizar el TFG. Esta trazabilidad evita presentar como medidos beneficios que, en esta fase, todavía son hipótesis.
+
+\needspace{6\baselineskip}
+\section{Autovaloración personal}\label{sec:5-2}
+
+Mi autoevaluación sobre sostenibilidad refleja un punto fuerte claro: he aprendido a no valorar una solución informática solo por sus funcionalidades, sino por sus efectos económicos, ambientales y sociales. En el proyecto he identificado desde el inicio que tratar datos de menores exige priorizar la seguridad, la privacidad y la facilidad de uso de quienes realizan la actividad. También considero positivo haber reutilizado el ordenador y software libre, haber estimado el coste profesional del trabajo y haber evitado usar datos reales durante las pruebas. Estas decisiones muestran que puedo relacionar requisitos técnicos con consecuencias que afectan a personas y recursos.\newline \newline Al mismo tiempo, reconozco varias debilidades. Mis estimaciones ambientales son iniciales y se basan en el consumo previsto del equipo, por lo que todavía no miden el posible servidor, los dispositivos móviles ni el comportamiento real de los usuarios en una implantación. Tampoco puedo afirmar un ahorro económico real para el centro sin validar el proceso actual, medir el tiempo administrativo y analizar los costes de soporte, formación y alojamiento. Finalmente, aún debo contrastar el diseño con monitores, coordinación y familias para comprobar que los controles de custodia sean comprensibles y no añadan una carga excesiva.\newline \newline La autoevaluación me lleva a una conclusión personal: mis fortalezas son la capacidad de anticipar riesgos, estructurar la información y considerar la protección de menores desde el diseño; mis aspectos a mejorar son medir con evidencias, validar con usuarios y convertir los principios de sostenibilidad en indicadores de seguimiento. Durante el TFG revisaré estas cuestiones con pruebas, consumo observado, desviaciones del presupuesto y retroalimentación de los participantes. Así, la sostenibilidad no quedará como una declaración general, sino como un criterio para tomar decisiones técnicas y de gestión.
+
+\needspace{6\baselineskip}
+\section{Dimensión económica}\label{sec:5-3}
+
+Respecto al proyecto puesto en producción, he estimado un coste de 12.501,58 € como equivalente profesional y he separado personal, costes generales, contingencia e imprevistos. Respecto a la vida útil, el proceso actual de referencia utiliza hojas de cálculo, listas y mensajes, que pueden tener un coste inicial bajo pero consumen tiempo de coordinación y favorecen duplicidades. La solución no promete un ahorro monetario sin datos reales; su mejora económica esperada es reducir la búsqueda, conciliación y corrección de información mediante una fuente única. Antes de producción se deberán presupuestar hosting, soporte, formación y protección de datos.
+
+He llegado a esta conclusión a partir de las Tablas~\ref{tab:16} a~\ref{tab:22}: el coste profesional equivalente agrega 10.879,70 € de personal, 279,44 € de costes generales, 989,10 € de contingencia y 353,34 € de imprevistos. La comparación con el proceso actual no cuantifica todavía ahorro, porque el tiempo de coordinación y de corrección no ha sido medido en un centro concreto. En la evaluación final compararé el tiempo empleado en localizar una autorización, consolidar una asistencia y comunicar una incidencia antes y después del prototipo.
+
+\needspace{6\baselineskip}
+\section{Dimensión ambiental}\label{sec:5-4}
+
+Para la realización del proyecto he estimado 29,7 kWh de consumo del ordenador durante las 495 horas base. He minimizado este impacto reutilizando el equipo, usando software libre, evitando impresiones innecesarias y trabajando con datos sintéticos en local. En la situación actual de referencia, las listas en papel y los archivos o mensajes duplicados pueden generar consumo de papel, almacenamiento y retrabajo. La solución puede reducir esas duplicidades al centralizar registros, aunque una futura producción deberá cuantificar el consumo del servidor, de las copias, de la retención de datos y de los dispositivos móviles.
+
+La estimación de 29,7 kWh procede de aplicar la potencia de referencia del equipo (0,060 kW) a las 495 horas base del TFG: 0,060 kW $\times$ 495 h. No se interpreta como el impacto completo de una implantación, ya que no incorpora servidor, red, dispositivos de las familias ni almacenamiento prolongado. Por ello, en la fase final registraré las horas reales del equipo y, si existe un entorno desplegado, el consumo o la configuración del alojamiento y de las copias.
+
+\needspace{6\baselineskip}
+\section{Dimensión social}\label{sec:5-5}
+
+La dimensión social se centra en las personas afectadas por la solución: alumnado, familias, monitorado, coordinación, administración y responsables de protección de datos. La necesidad social parte de un riesgo concreto: una asistencia o una entrega mal documentada puede afectar a la seguridad del menor, retrasar una respuesta o deteriorar la confianza de la familia. Frente a la gestión fragmentada de referencia, el sistema propone una ficha común, permisos limitados por rol y un historial de asistencia, custodia e incidencias. El beneficio esperado no es sustituir la decisión humana, sino proporcionar información fiable para que la persona responsable pueda decidir con rapidez y contexto.
+
+El impacto social también incluye riesgos que debo evitar. Un formulario adicional puede aumentar la carga del monitor; una interfaz poco clara puede excluir a personas con menor competencia digital; y un permiso demasiado amplio puede vulnerar la intimidad del alumnado. Por ello, las operaciones de asistencia y entrega se diseñarán para completarse en pocos pasos, las incidencias no se comunicarán a destinatarios no autorizados y las excepciones de recogida se escalarán a coordinación, sin convertir una regla automática en una decisión sobre el menor.
+
+\needspace{21\baselineskip}
+\subsection{Impacto por colectivo y medidas de diseño}\label{sec:5-5-1}
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.747\hsize\raggedright\arraybackslash}X>{\hsize=1.095\hsize\raggedright\arraybackslash}X>{\hsize=1.095\hsize\raggedright\arraybackslash}X>{\hsize=1.063\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Colectivo} & \textbf{Beneficio o necesidad social} & \textbf{Riesgo que se debe evitar} & \textbf{Indicador final} \\
+\midrule
+Alumnado & Custodia documentada y respuesta más coherente ante una ausencia o incidencia. & Convertir el control en vigilancia excesiva o depender de una decisión automática. & 0 entregas simuladas aceptadas sin autorización y registro completo de cada excepción. \\
+Familias y personas autorizadas & Mayor claridad sobre autorizaciones, comunicación y responsable de cada evento. & Comunicación confusa, exposición de datos o dificultades de acceso al canal. & Éxito en 4 tareas informativas y valoración de claridad en prueba guiada. \\
+Monitorado y coordinación & Una fuente única reduce la búsqueda manual y facilita reconstruir una sesión. & Añadir pasos innecesarios, carga administrativa o alertas que no aportan valor. & Tiempo de registro, errores por tarea y percepción de carga en prueba de tareas. \\
+Centro y protección de datos & Roles y auditoría ayudan a demostrar qué información se consultó o modificó. & Asignar permisos demasiado amplios o conservar datos sin finalidad definida. & Pruebas negativas de acceso superadas y revisión de campos exportables. \\
+\bottomrule
+\end{tabularx}
+\caption{Impactos sociales, riesgos y evidencias previstas}\label{tab:40}
+\end{table}
+
+La matriz se ha elaborado relacionando los actores de la Tabla~\ref{tab:1} con los requisitos RF02 a RF05 y con los riesgos de exposición de datos y de baja adopción. No atribuye todavía mejoras medidas: formula resultados esperados y define qué evidencia permitiría aceptarlos o rechazarlos. Esta distinción es importante porque un proceso más digital no es socialmente mejor si reduce la comprensión, incrementa el trabajo cotidiano o deja fuera a alguna persona autorizada.
+
+\needspace{6\baselineskip}
+\subsection{Validación social y accesibilidad}\label{sec:5-5-2}
+
+La validación social combinará una prueba de tareas con una revisión cualitativa. El guion incluirá consultar la lista de una sesión, marcar una asistencia, registrar una entrega autorizada, gestionar una entrega excepcional y abrir una incidencia. En cada tarea se anotarán tiempo, errores, necesidad de ayuda y observaciones sobre el lenguaje empleado. Cuando sea posible, la interfaz se revisará con navegación por teclado, contraste suficiente y etiquetas comprensibles, siguiendo el objetivo de accesibilidad definido en RNF03.
+
+Al finalizar el TFG, consideraré que la contribución social es aceptable si las funciones obligatorias pueden realizarse sin errores críticos, no se detectan accesos indebidos, las personas de prueba comprenden qué acción están confirmando y el registro no añade una carga desproporcionada. Si los resultados muestran confusión, tiempos elevados o permisos ambiguos, priorizaré simplificar el flujo y corregir los controles antes de añadir funciones secundarias como el portal familiar o indicadores ampliados.
+
+Esta valoración se deriva de la Tabla~\ref{tab:1} de actores, de los riesgos de exposición de datos y de los requisitos RF02 a RF05: la solución solo aportará valor social si facilita el trabajo diario sin ampliar de forma innecesaria el acceso a datos de menores. Para comprobarlo, recogeré la percepción de monitores y coordinación mediante pruebas de tareas y observaciones sobre claridad del flujo, errores de entrega y tiempo de registro.
+
+\needspace{6\baselineskip}
+\section{Compromisos verificables}\label{sec:5-6}
+
+Durante el desarrollo aplicaré cuatro compromisos: (1) no usar datos reales de menores en el entorno de pruebas; (2) limitar la información visible a cada rol y registrar los cambios relevantes; (3) mantener una versión exportable de los datos sintéticos y de la configuración para evitar dependencia innecesaria; y (4) documentar las decisiones que afecten a seguridad, coste o sostenibilidad. Estos compromisos se comprobarán en T11–T13 y se revisarán en la memoria final.
+
+\needspace{6\baselineskip}
+\section{Límites del informe}\label{sec:5-7}
+
+La sostenibilidad inicial no afirma beneficios medidos ni certifica el cumplimiento normativo. Parte de supuestos razonables para un centro de primaria y de un prototipo académico. La evaluación final deberá sustituir las estimaciones por evidencias: resultados de pruebas, esfuerzo real, consumo observado, incidencias detectadas y validación de las reglas de custodia.
+

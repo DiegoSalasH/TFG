@@ -1,0 +1,155 @@
+% Memoria del TFG · Diego Salas · FIB-UPC
+% Compilar desde esta carpeta con:  tectonic main.tex   (o ./compilar.sh)
+
+\documentclass[11pt,a4paper,oneside]{report}
+
+% --- Idioma y tipografía (XeTeX, que es el motor de Tectonic) ---------------
+\usepackage{fontspec}
+\usepackage[catalan,english,main=spanish]{babel}
+\addto\captionsspanish{%
+  \renewcommand{\tablename}{Tabla}%
+  \renewcommand{\listtablename}{Índice de tablas}%
+  \renewcommand{\listfigurename}{Índice de figuras}%
+  \renewcommand{\contentsname}{Índice}%
+  \renewcommand{\bibname}{Bibliografía}}
+% Fuente: Latin Modern, la que fontspec usa por defecto.
+
+% --- Página -----------------------------------------------------------------
+\usepackage[a4paper,top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm,headheight=14pt]{geometry}
+\usepackage{setspace}
+\setstretch{1.15}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+% --- Tablas, figuras y color ------------------------------------------------
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{array,booktabs,longtable,tabularx,xltabular}
+\usepackage{float}
+\usepackage[section]{placeins}   % las tablas y figuras no saltan a otro apartado
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.75}
+\usepackage[font=small,labelfont=bf,labelsep=period,skip=6pt]{caption}
+\definecolor{cabeceratabla}{gray}{0.85}
+% Numeración global (Tabla 1…40, Figura 1…4), como en el Google Doc
+\counterwithout{table}{chapter}
+\counterwithout{figure}{chapter}
+\renewcommand{\arraystretch}{1.25}
+% El tamaño de letra de cada tabla (\small o \footnotesize) lo fija el grupo que la rodea.
+\setlength{\LTpre}{8pt}
+\setlength{\LTpost}{8pt}
+
+% --- Títulos y cabeceras ----------------------------------------------------
+\usepackage{titlesec}
+\titleformat{\chapter}[hang]{\huge\bfseries}{\thechapter.}{0.6em}{}
+\titlespacing*{\chapter}{0pt}{0pt}{1.2em}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\nouppercase{\leftmark}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\thepage}\renewcommand{\headrulewidth}{0pt}}
+
+% --- Otros ------------------------------------------------------------------
+\usepackage{etoolbox}
+\usepackage{needspace}
+\usepackage{cite}
+\usepackage{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+
+% Marcas para lo que falta por completar (se ven en rojo en el PDF)
+\newcommand{\pendiente}[1]{\textcolor{red!70!black}{\textbf{[#1]}}}
+\newcommand{\figurapendiente}[1]{%
+  \fcolorbox{red!60!black}{yellow!25}{\parbox[c][4cm][c]{0.8\textwidth}{\centering\pendiente{#1}}}}
+
+% Caja para los apartados que la directora dé por cerrados (sin usar todavía)
+\newtcolorbox{apartadoterminado}{colback=green!6,colframe=green!45!black,
+  title={\checkmark\ Apartado terminado},fonttitle=\bfseries\small}
+
+% --- Datos del trabajo ------------------------------------------------------
+\newcommand{\titulotfg}{Selección del CRM más adecuado para el control seguro de actividades extraescolares en primaria}
+\newcommand{\autortfg}{Diego Salas}
+
+\hypersetup{pdftitle={\titulotfg},pdfauthor={\autortfg}}
+
+\begin{document}
+
+% ============================================================================
+% Portada
+% ============================================================================
+\begin{titlepage}
+  \centering
+  \includegraphics[width=0.75\textwidth]{imagenes/logo_upc_fib.png}\par
+  \vspace{2cm}
+  {\Large UNIVERSITAT POLITÈCNICA DE CATALUNYA\par}
+  \vspace{0.3cm}
+  {\large Facultat d'Informàtica de Barcelona (FIB)\par}
+  \vspace{1.5cm}
+  {\Large Trabajo Final de Grado\par}
+  \vspace{1cm}
+  {\LARGE\bfseries \titulotfg\par}
+  \vspace{1cm}
+  {\large GEP\par}
+  {\large Entregable 4 - Documento final\par}
+  \vfill
+  \begin{tabular}{@{}>{\bfseries}l l@{}}
+    Estudiante                 & Diego Salas \\
+    Directora del TFG          & Carme Martín Escofet \\
+    Tutora de GEP              & Giovanna Lara \\
+    Titulación                 & Grado en Ingeniería Informática \\
+    Especialidad               & Sistemas de Información \\
+    Fecha prevista de entrega  & 12 de octubre de 2026 \\
+  \end{tabular}
+  \vspace{1cm}
+\end{titlepage}
+
+\pagenumbering{roman}
+
+% ============================================================================
+% Resúmenes (vacíos en la memoria original)
+% ============================================================================
+\chapter*{Resum}
+\begin{otherlanguage}{catalan}
+\pendiente{Pendent de redactar.}
+\end{otherlanguage}
+
+\chapter*{Resumen}
+\pendiente{Pendiente de redactar.}
+
+\chapter*{Summary}
+\begin{otherlanguage}{english}
+\pendiente{To be written.}
+\end{otherlanguage}
+
+% ============================================================================
+% Índices (se generan solos, con sus números de página)
+% ============================================================================
+\tableofcontents
+\listoftables
+\listoffigures
+
+\cleardoublepage
+\pagenumbering{arabic}
+
+% ============================================================================
+% Capítulos
+% ============================================================================
+\input{capitulos/01_contexto}
+\input{capitulos/02_planificacion}
+\input{capitulos/03_presupuesto}
+\input{capitulos/04_especificacion}
+\input{capitulos/05_sostenibilidad}
+
+% ============================================================================
+% Bibliografía
+% ============================================================================
+\renewcommand{\bibname}{Bibliografía}
+\input{bibliografia}
+
+\end{document}

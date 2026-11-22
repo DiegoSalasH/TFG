@@ -1,0 +1,288 @@
+% Generado por trabajo_en_curso/week5/latex/convertir.py a partir del .docx de la memoria.
+% A partir de ahora este fichero es la fuente: edítalo directamente.
+
+\chapter{Contexto}\label{sec:1}
+
+\needspace{6\baselineskip}
+\section{Contextualización e introducción}\label{sec:1-1}
+
+\needspace{6\baselineskip}
+\subsection{Marco del proyecto y conceptos fundamentales}\label{sec:1-1-1}
+
+Este Trabajo de Final de Grado se desarrolla en la especialidad de Sistemas de Información del Grado en Ingeniería Informática de la Facultad de Informática de Barcelona. El proyecto estudia la gestión de actividades extraescolares en un centro de educación primaria y evalúa la selección y adaptación de una plataforma CRM para cubrir tres procesos críticos: el control de asistencia, la trazabilidad de la custodia de los alumnos y la comunicación de incidencias.
+
+La propuesta es aplicable a centros públicos, concertados o privados, ya que se centra en procesos comunes de organización y seguridad infantil. Las actividades pueden estar coordinadas por el propio centro, una asociación de familias o una entidad externa. En todos los casos intervienen familias, monitores, coordinación, administración y dirección, con necesidades de información y responsabilidades diferentes.
+
+En este contexto, el CRM se entiende como una combinación de procesos, personas y tecnología para gestionar relaciones e interacciones de forma coherente~\cite{ref01}. El alumno es el sujeto protegido, mientras que las familias y las personas autorizadas son los contactos asociados a su ficha. Los conceptos principales del sistema son los siguientes:
+
+\begin{itemize}
+  \item \textbf{Asistencia:} registro del estado del alumno en cada sesión, incluyendo presencia, ausencia, retraso o justificación, junto con la fecha, hora y usuario que realiza el cambio.
+  \item \textbf{Custodia y entrega:} registro de la responsabilidad del menor durante la actividad y de su entrega final a una persona autorizada.
+  \item \textbf{Incidencia:} hecho relevante ocurrido durante una actividad, clasificado por tipo y gravedad, con actuaciones realizadas y comunicación a los destinatarios correspondientes.
+  \item \textbf{Trazabilidad:} capacidad de reconstruir el historial de asistencia, custodia, incidencias y cambios realizados sobre cada alumno.
+\end{itemize}
+
+Dado que el sistema tratará datos personales de menores y de sus representantes, deberá respetar los principios de finalidad, minimización, seguridad y deber de información~\cite{ref02}. La privacidad y el control de acceso se consideran, por tanto, requisitos del sistema desde su diseño.
+
+\needspace{6\baselineskip}
+\subsection{Problema y actores implicados}\label{sec:1-1-2}
+
+Como escenario de referencia, se plantea una gestión fragmentada: las inscripciones se mantienen en hojas de cálculo, los monitores utilizan listas independientes para pasar asistencia, las autorizaciones de recogida se comunican por correo o mensajería y las incidencias se registran o notifican mediante canales no centralizados. Este escenario deberá validarse posteriormente con el centro colaborador.
+
+Esta fragmentación puede provocar listas desactualizadas, dificultades para confirmar si un alumno asistió o fue recogido por una persona autorizada, pérdida de información sobre incidencias y un esfuerzo manual elevado para preparar informes. Además, el uso de canales informales dificulta controlar permisos, conservación de datos y auditoría. Ahora se expondrá la tabla de actores.
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.865\hsize\raggedright\arraybackslash}X>{\hsize=0.806\hsize\raggedright\arraybackslash}X>{\hsize=1.228\hsize\raggedright\arraybackslash}X>{\hsize=1.154\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Actor} & \textbf{Relación con el sistema} & \textbf{Necesidad principal} & \textbf{Acceso previsto} \\
+\midrule
+Dirección & Responsable organizativo & Supervisar cumplimiento, riesgos e incidencias graves & Indicadores, auditoría y escalados \\
+Coordinación & Gestión diaria & Mantener grupos, sesiones, autorizaciones y seguimiento & Vista operativa completa dentro de su ámbito \\
+Monitorado & Usuario de primera línea & Pasar lista, registrar entregas e incidencias & Solo actividades y alumnos asignados \\
+Administración & Soporte de datos & Altas, bajas, contactos y documentación & Datos administrativos; sin detalle innecesario de incidencias \\
+Familias y tutores & Origen y destinatario de información & Actualizar contactos, autorizaciones y recibir comunicaciones & Información de sus menores y acuses \\
+Alumnado & Sujeto protegido y beneficiario & Participar con seguridad y recibir atención coherente & Sin acceso directo en el alcance inicial \\
+Delegado de protección de datos & Control y asesoramiento & Revisar legitimación, contratos, riesgos y derechos & Evidencias y configuración, según necesidad \\
+Proveedor o administrador TI & Operación técnica & Mantener disponibilidad, copias y seguridad & Acceso técnico restringido y registrado \\
+Estudiante (Diego Salas) & Responsable de ejecución del TFG & Analizar, configurar, probar y documentar la propuesta & Administración del entorno de pruebas y repositorio; sin datos reales \\
+Tutora de GEP & Seguimiento académico de la gestión & Revisar alcance, planificación y evidencias de gestión & Documentación y evidencias del proyecto; sin acceso operativo a datos \\
+\bottomrule
+\end{tabularx}
+\caption{Actores implicados}\label{tab:1}
+\end{table}
+
+\needspace{6\baselineskip}
+\section{Justificación de la solución}\label{sec:1-2}
+
+\needspace{6\baselineskip}
+\subsection{Justificación del TFG y antecedentes}\label{sec:1-2-1}
+
+El problema no parte de una necesidad tecnológica abstracta. En programas con responsabilidad sobre menores, la asistencia y la entrega requieren registrar la entrada y la salida, identificar a las personas autorizadas y dejar constancia de las excepciones. Las pautas de seguridad para programas juveniles recomiendan documentar la transición de custodia, conservar la hora de llegada y salida y registrar la identidad de la persona que recoge al menor~\cite{ref31}.
+
+También existen soluciones especializadas que cubren partes de este flujo. BatOnRoute incluye control de asistencia en actividades extraescolares y registra quién recoge al alumno, cuándo y con qué autorización~\cite{ref32}; Qualla gestiona cambios de recogida, autorizaciones y avisos a las familias~\cite{ref33}. Estos antecedentes confirman que la necesidad es real, pero no sustituyen el objetivo del TFG: estudiar de forma reproducible si un CRM configurable puede integrar asistencia, custodia e incidencias en un mismo modelo de información, con control de acceso y posibilidad de adaptación para un centro de primaria.
+
+\needspace{6\baselineskip}
+\subsection{Solución propuesta}\label{sec:1-2-2}
+
+La solución propuesta centralizará la información en una ficha relacional del alumno. Las inscripciones generarán las listas de cada sesión; el monitor registrará la asistencia desde una interfaz web; la entrega quedará vinculada a una persona autorizada; y las incidencias seguirán un flujo con prioridad, responsable y registro de comunicación. Cada perfil accederá únicamente a los datos necesarios: los monitores gestionarán sus grupos, coordinación supervisará las actividades, administración mantendrá los datos de inscripción y dirección podrá consultar indicadores e incidencias escaladas.
+
+La propuesta pretende mejorar la seguridad operativa y la coordinación entre los actores implicados sin sustituir la decisión humana ante una recogida excepcional. El RGPD exige aplicar medidas adecuadas al riesgo y protección de datos desde el diseño~\cite{ref03}. Por ello, el TFG analizará los procesos actuales, comparará alternativas CRM y validará una adaptación que aporte trazabilidad, control de acceso y un canal ordenado para las incidencias.
+
+\needspace{6\baselineskip}
+\subsection{Adaptar una plataforma}\label{sec:1-2-3}
+
+Se consideran tres estrategias:
+
+\begin{itemize}
+  \item La primera es continuar con herramientas ofimáticas e introducir formularios y plantillas. Tiene un coste inicial bajo, pero mantiene la fragmentación y exige construir manualmente permisos, historial y alertas.
+  \item La segunda es desarrollar una aplicación completa a medida. Ofrece control funcional, aunque consume gran parte del TFG en autenticación, administración, interfaces básicas y mantenimiento.
+  \item La tercera es adaptar una plataforma con gestión de contactos, roles, flujos, API y capacidad de extensión.
+\end{itemize}
+
+La tercera estrategia es la más proporcionada. Permite dedicar el esfuerzo de ingeniería a modelar la custodia y las incidencias, que son los elementos diferenciales, y reutiliza capacidades maduras para usuarios, relaciones, notificaciones y administración. La decisión no elimina el desarrollo: exige diseñar entidades, reglas, permisos, vistas y pruebas específicas. Además, reduce el riesgo de construir un prototipo aislado que no pueda evolucionar.
+
+Las plataformas escolares verticales se analizarán como referencia funcional, pero no serán la base prioritaria si su modelo cerrado impide estudiar y adaptar el sistema. El entregable técnico debe mostrar cómo una plataforma configurable puede transformarse para un proceso distinto del comercial y evaluar sus límites con criterios reproducibles.
+
+\needspace{6\baselineskip}
+\subsection{Alternativas preseleccionadas}\label{sec:1-2-4}
+
+Se preseleccionan tres plataformas con enfoques diferentes. SuiteCRM 8 es un CRM de código abierto que puede instalarse en infraestructura propia y ofrece API, herramientas para crear módulos, relaciones, campos y vistas~\cite{ref05,ref06,ref07}. Odoo combina CRM con un entorno modular amplio; su documentación distingue contactos, derechos de acceso y reglas de registro, aunque su módulo estándar de asistencia está orientado a empleados y requiere adaptación para alumnado~\cite{ref10}. Salesforce Education Cloud aporta un modelo educativo amplio y relaciones entre estudiantes y tutores, pero opera como servicio propietario y su coste y dependencia del proveedor deben valorarse para un centro pequeño~\cite{ref11}.
+
+No se incluye una plataforma solo por popularidad. Cada candidata debe permitir representar la relación alumno-familia, restringir el acceso por actividad y conservar evidencia de asistencia, custodia e incidencias. Los criterios y pesos de la Tabla~\ref{tab:2} se fijan antes de puntuar para reducir el sesgo hacia una herramienta concreta.
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.714\hsize\raggedright\arraybackslash}X>{\hsize=0.222\hsize\raggedright\arraybackslash}X>{\hsize=2.063\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Criterio} & \textbf{Peso} & \textbf{Forma de evaluación} \\
+\midrule
+Adecuación funcional & 25 \% & Cobertura nativa o configurable de personas, relaciones, sesiones, estados y comunicaciones \\
+Privacidad y seguridad & 20 \% & Roles, permisos a nivel de registro, auditoría, autenticación e implantación de medidas RGPD \\
+Extensibilidad & 20 \% & Creación de módulos, reglas, API y posibilidad de mantener extensiones sin modificar el núcleo \\
+Control de despliegue y datos & 15 \% & Opciones de alojamiento, exportación, copias, portabilidad y dependencia del proveedor \\
+Coste y licencia & 10 \% & Licencias, infraestructura, complementos y sostenibilidad para un centro de primaria \\
+Usabilidad y aprendizaje & 10 \% & Adecuación móvil, consistencia de interfaz, documentación y esfuerzo de formación \\
+\bottomrule
+\end{tabularx}
+\caption{Criterios de selección}\label{tab:2}
+\end{table}
+
+\needspace{6\baselineskip}
+\subsection{Método de evaluación}\label{sec:1-2-5}
+
+Cada alternativa recibe una puntuación de 1 a 5 por criterio: 1 significa que no cubre la necesidad o exige una solución externa sustancial; 3 indica cobertura parcial con configuración o desarrollo asumible; y 5 representa cobertura sólida, verificable y sostenible. La puntuación total se calcula mediante la suma de cada nota multiplicada por su peso. Durante el TFG, las notas se confirmarán con una prueba de concepto equivalente para cada candidata: creación de un alumno y dos autorizados, restricción de un monitor a su grupo, registro de asistencia, alta de una incidencia y exportación del historial.
+
+La comparación inicial se apoya en documentación oficial. SuiteCRM permite crear módulos y relaciones con Module Builder y Studio~\cite{ref07}, definir roles y grupos de seguridad~\cite{ref08} y automatizar acciones mediante workflows~\cite{ref09}. Su licencia AGPLv3 permite estudiar y modificar el código, aunque obliga a revisar las condiciones de distribución de las adaptaciones~\cite{ref06}. Estas capacidades encajan con un prototipo académico que necesita entidades nuevas y control sobre el alojamiento.
+
+\needspace{6\baselineskip}
+\subsection{Evaluación comparativa}\label{sec:1-2-6}
+
+La Tabla~\ref{tab:3} recoge la evaluación preliminar. Las puntuaciones deberán actualizarse si la prueba de concepto contradice alguna capacidad documentada. Esta trazabilidad evita convertir la matriz en una justificación retrospectiva.
+
+\begin{table}[H]
+\centering\footnotesize
+\begin{tabularx}{\textwidth}{>{\hsize=2.264\hsize\raggedright\arraybackslash}X>{\hsize=0.720\hsize\raggedright\arraybackslash}X>{\hsize=0.649\hsize\raggedright\arraybackslash}X>{\hsize=0.567\hsize\raggedright\arraybackslash}X>{\hsize=0.799\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Criterio} & \textbf{Peso} & \textbf{SuiteCRM 8} & \textbf{Odoo CRM} & \textbf{Salesforce Education Cloud} \\
+\midrule
+Adecuación funcional & 25 \% & 3 & 3 & 4 \\
+Privacidad y seguridad & 20 \% & 4 & 4 & 5 \\
+Extensibilidad & 20 \% & 5 & 5 & 5 \\
+Control de despliegue y datos & 15 \% & 5 & 4 & 2 \\
+Coste y licencia & 10 \% & 5 & 3 & 1 \\
+Usabilidad y aprendizaje & 10 \% & 3 & 4 & 4 \\
+Resultado ponderado & 100 \% & 4,10 & 3,85 & 3,80 \\
+\bottomrule
+\end{tabularx}
+\caption{Matriz ponderada de alternativas}\label{tab:3}
+\end{table}
+
+Con la información documental disponible, SuiteCRM obtiene 4,10 sobre 5 y se adopta como candidata de trabajo provisional. Su principal desventaja es la falta de objetos escolares nativos, lo que aumenta el trabajo de análisis y diseño. Esta carencia es asumible porque el objetivo del TFG incluye adaptar un CRM. No obstante, la decisión definitiva quedará condicionada a completar las pruebas de concepto equivalentes y a validar el proceso con el centro colaborador. Odoo y Salesforce se mantendrán como alternativas hasta cerrar esa validación: Odoo ofrece un marco técnico atractivo, mientras que Salesforce aporta una mayor cobertura educativa, pero sus licencias, alojamiento gestionado y dependencia del proveedor reducen su adecuación inicial a un centro pequeño.
+
+\needspace{6\baselineskip}
+\subsection{Opción tecnológica provisional}\label{sec:1-2-7}
+
+Se trabajará inicialmente con SuiteCRM 8 en un entorno de desarrollo aislado y con un paquete de extensión denominado Gestión de Extraescolares. La decisión de mantener esta plataforma se registrará al finalizar las pruebas de concepto; si una alternativa supera los criterios críticos, se revisará la línea base antes de desarrollar los módulos. El modelo reutilizará usuarios, contactos, actividades, notificaciones y API cuando aporten valor, pero no representará a los menores como oportunidades comerciales. Se crearán módulos específicos para Alumnos, Personas autorizadas, Actividades, Grupos, Sesiones, Asistencias, Eventos de custodia e Incidencias.
+
+Las relaciones centrales serán: un alumno puede tener varias personas autorizadas; una actividad contiene grupos y sesiones; una inscripción vincula alumno y grupo durante un periodo; cada sesión genera registros de asistencia; y cada salida genera un evento de custodia asociado al alumno, la sesión, la persona que entrega y la persona autorizada que recoge. Una incidencia podrá relacionarse con alumno, sesión y actividad, pero su visibilidad dependerá de la gravedad y el rol.
+
+Los workflows automatizarán avisos, escalados y tareas, sin sustituir decisiones sensibles. Por ejemplo, una ausencia no generará automáticamente una acusación o alarma; creará una tarea de verificación según el protocolo acordado. La entrega a una persona no autorizada quedará bloqueada y exigirá intervención de coordinación. Las comunicaciones registrarán destinatario, canal, fecha, estado y acuse cuando proceda, evitando almacenar conversaciones privadas completas.
+
+\needspace{6\baselineskip}
+\subsection{Arquitectura y protección desde el diseño}\label{sec:1-2-8}
+
+La aplicación se alojará sobre HTTPS con base de datos separada, copias cifradas y perfiles de mínimo privilegio. El repositorio de código solo contendrá configuración y extensiones, nunca datos reales. Para desarrollo y pruebas se usarán datos sintéticos. La minimización afectará también a la custodia: el sistema guardará la referencia de la persona autorizada y el método de comprobación, pero no una copia completa del documento de identidad salvo que exista una base jurídica y una necesidad aprobada. Esta decisión aplica los principios de los artículos 5, 25 y 32 del RGPD~\cite{ref03}.
+
+\needspace{6\baselineskip}
+\section{Alcance del proyecto}\label{sec:1-3}
+
+\needspace{6\baselineskip}
+\subsection{Objetivo general}\label{sec:1-3-1}
+
+El objetivo general es analizar el sistema de información de las actividades extraescolares de un centro de primaria, seleccionar la plataforma CRM más adecuada y construir una adaptación que permita controlar asistencia, mantener la trazabilidad de la custodia y gestionar incidencias con seguridad, privacidad y evidencia verificable.
+
+\needspace{6\baselineskip}
+\subsection{Subobjetivos y entregables}\label{sec:1-3-2}
+
+\begin{itemize}
+  \item Validar el proceso de referencia con los interesados e identificar actores, reglas, excepciones y requisitos priorizados.
+  \item Comparar alternativas mediante pruebas de concepto equivalentes y justificar la selección mediante una matriz ponderada reproducible.
+  \item Diseñar e implementar el producto mínimo viable: modelo de datos, permisos, asistencia, custodia, incidencias y notificaciones.
+  \item Probar la solución, documentar sus resultados y entregar configuración reproducible, datos sintéticos, manual de uso y guía técnica.
+\end{itemize}
+
+Los entregables serán el documento de análisis y requisitos, el informe de selección, el modelo de datos y permisos, el paquete de extensión para SuiteCRM y el plan con resultados de prueba. La matriz de trazabilidad relacionará cada objetivo con requisito, implementación, caso de prueba y evidencia.
+
+\needspace{6\baselineskip}
+\subsection{Límites del alcance}\label{sec:1-3-3}
+
+Quedan fuera la gestión académica, calificaciones, facturación, contabilidad, nóminas, planificación de aulas y contratación de monitores. La solución será web adaptable, no una aplicación móvil nativa. También se excluyen la biometría y el reconocimiento facial por su impacto y falta de necesidad para el objetivo.
+
+La primera versión probará las notificaciones en un entorno controlado y no enviará comunicaciones reales por SMS o servicios comerciales. Cualquier integración con correo o plataforma del centro requerirá una revisión contractual y de protección de datos. El sistema aplicará autorizaciones vigentes, pero el personal responsable conservará la decisión final ante una recogida excepcional.
+
+La validación se realizará con datos sintéticos y un centro de referencia. Demostrará la viabilidad del caso definido, no una implantación general. Una puesta en producción requerirá análisis de riesgos, acuerdo con el responsable del tratamiento, formación y validación jurídica.
+
+\needspace{6\baselineskip}
+\subsection{Requisitos y riesgos}\label{sec:1-3-4}
+
+Los requisitos del producto mínimo viable se separan en funcionales y no funcionales. Los atributos de calidad se basan en ISO/IEC 25010:2023~\cite{ref12}. La prioridad M identifica los requisitos obligatorios; S, los importantes; y C, las mejoras deseables.
+
+Los requisitos funcionales describen las capacidades que debe ofrecer la adaptación para gestionar información, asistencia, custodia, incidencias y permisos.
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.275\hsize\raggedright\arraybackslash}X>{\hsize=1.591\hsize\raggedright\arraybackslash}X>{\hsize=0.436\hsize\raggedright\arraybackslash}X>{\hsize=1.698\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{ID} & \textbf{Requisito resumido} & \textbf{Prior.} & \textbf{Comprobación} \\
+\midrule
+RF01 & Gestionar alumnos, contactos, autorizaciones vigentes e inscripciones. & M & No se guarda una ficha incompleta; una autorización vencida o revocada no es válida. \\
+RF02 & Gestionar actividades, grupos y sesiones; generar la lista de sesión desde inscripciones activas. & M & La lista excluye alumnos de otra actividad o con inscripción cancelada; inicio anterior a fin. \\
+RF03 & Registrar asistencia y cambios con estado, hora, autor y motivo. & M & Cada alumno queda en un estado controlado; no hay dos registros para la misma sesión. \\
+RF04 & Registrar custodia y entrega; bloquear o escalar una salida a una persona no autorizada. & M & El evento conserva sesión, responsable y receptor; solo se confirma una entrega autorizada. \\
+RF05 & Tramitar incidencias por tipo, prioridad, responsable, actuación y estado. & M & No se cierra una incidencia sin responsable y actuación registrada. \\
+RF06 & Registrar comunicaciones de incidencias con destinatario, canal, envío y acuse cuando exista. & M & Cada aviso queda vinculado a la incidencia; no se envía a un destinatario no autorizado. \\
+RF07 & Aplicar permisos por actividad y rol y consultar o exportar historial autorizado. & M & Un monitor no accede a grupos ajenos; coordinación reconstruye una sesión con auditoría. \\
+RF08 & Importar CSV validado y exportar únicamente información autorizada. & S & Los errores se informan y ninguna fila se aplica parcialmente sin confirmación. \\
+RF09 & Generar indicadores agregados y habilitar un portal familiar limitado. & C & Los indicadores no exponen datos innecesarios; la familia solo consulta información de sus menores. \\
+\bottomrule
+\end{tabularx}
+\caption{Requisitos funcionales}\label{tab:4}
+\end{table}
+
+Los requisitos no funcionales establecen las condiciones de seguridad, rendimiento, recuperación, mantenibilidad, usabilidad y accesibilidad que deberá cumplir el prototipo.
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.334\hsize\raggedright\arraybackslash}X>{\hsize=2.006\hsize\raggedright\arraybackslash}X>{\hsize=0.436\hsize\raggedright\arraybackslash}X>{\hsize=1.224\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{ID} & \textbf{Requisito resumido} & \textbf{Prior.} & \textbf{Comprobación} \\
+\midrule
+RNF01 & Seguridad y privacidad: HTTPS, acceso individual, mínimo privilegio, auditoría y datos sintéticos. & M & Pruebas de acceso indebido y revisión de exportaciones~\cite{ref02,ref03,ref04}. \\
+RNF02 & Rendimiento, recuperación y mantenibilidad: \textless{}2 s en el 95 \% de operaciones; copias y extensiones versionadas. & M & Prueba con 10.000 alumnos, restauración y guía de instalación. \\
+RNF03 & Usabilidad y accesibilidad: asistencia y entrega en tres acciones; WCAG 2.2 AA cuando aplique. & S & Prueba de tareas y SUS $\geq$ 68. \\
+\bottomrule
+\end{tabularx}
+\caption{Requisitos no funcionales}\label{tab:5}
+\end{table}
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.974\hsize\raggedright\arraybackslash}X>{\hsize=0.215\hsize\raggedright\arraybackslash}X>{\hsize=1.811\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Riesgo} & \textbf{P/I} & \textbf{Respuesta} \\
+\midrule
+Requisitos sin validar & A/A & Entrevistas, prototipos y registro de supuestos; revisar reglas sin responsable. \\
+Exposición de datos de menores & M/MA & Datos sintéticos, permisos mínimos y pruebas negativas de acceso. \\
+Complejidad o cambios en SuiteCRM & M/A & Prueba técnica temprana y paquete desacoplado del núcleo. \\
+Sobrealcance o baja adopción & A/M & MoSCoW, producto mínimo, pruebas de tareas y formación breve. \\
+Fallo de notificaciones o datos & M/MA & Reintentos, canal alternativo, copias cifradas y restauración ensayada. \\
+\bottomrule
+\end{tabularx}
+\caption{Riesgos prioritarios y respuesta}\label{tab:6}
+\end{table}
+
+El riesgo principal es partir de un escenario sin centro identificado. Cada regla se marcará como validada, pendiente o descartada. Si el centro impone un procedimiento incompatible, se revisarán la matriz de selección y la línea base del alcance.
+
+\needspace{6\baselineskip}
+\section{Metodología de trabajo y rigor}\label{sec:1-4}
+
+\needspace{6\baselineskip}
+\subsection{Enfoque metodológico}\label{sec:1-4-1}
+
+El proyecto seguirá un ciclo de vida iterativo e incremental, apoyado por Kanban y revisiones quincenales. Se toman de Scrum la existencia de un backlog ordenado, objetivos de iteración, revisión del incremento y retrospectiva~\cite{ref13}, pero no se afirma que se aplique Scrum de forma completa. El trabajo lo realiza una sola persona y no existen un Scrum Team ni todos sus roles. Kanban permitirá limitar el trabajo en curso y visualizar tareas pendientes, activas, en revisión y terminadas, de acuerdo con el material de gestión ágil de GEP.
+
+El alcance se controlará mediante una línea base de objetivos, requisitos y exclusiones. Una petición nueva se registrará, estimará y clasificará antes de incorporarse. Si afecta a una funcionalidad obligatoria, se revisarán tiempo y prioridad con la directora del TFG. Este procedimiento sigue la recomendación de ejecutar lo previsto, documentar cambios y justificar medidas correctoras.
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.462\hsize\raggedright\arraybackslash}X>{\hsize=1.268\hsize\raggedright\arraybackslash}X>{\hsize=1.271\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Iteración} & \textbf{Trabajo principal} & \textbf{Resultado verificable} \\
+\midrule
+0 Contexto & Entrevistas, proceso, actores y protección de datos & Mapa validado, supuestos y registro inicial de riesgos \\
+1 Requisitos & Casos, reglas, prioridades y criterios de aceptación & Backlog y matriz de trazabilidad aprobados \\
+2 Selección & Pruebas de concepto y matriz ponderada & Informe reproducible y decisión registrada \\
+3 Modelo & Entidades, relaciones, roles y datos sintéticos & Paquete instalable y pruebas de permisos \\
+4 Núcleo & Asistencia, custodia, incidencias y workflows & Incremento demostrable con pruebas funcionales \\
+5 Validación & Seguridad, rendimiento, usabilidad y recuperación & Informe de resultados, defectos y correcciones \\
+6 Cierre & Documentación, despliegue y memoria & Entrega reproducible y trazabilidad completa \\
+\bottomrule
+\end{tabularx}
+\caption{Iteraciones, resultados y evidencias}\label{tab:7}
+\end{table}
+
+\needspace{6\baselineskip}
+\subsection{Seguimiento y herramientas}\label{sec:1-4-2}
+
+El backlog y el tablero Kanban se gestionarán con GitHub Projects o una herramienta equivalente. El código y la documentación técnica se mantendrán en un repositorio privado Git, con ramas breves y revisiones antes de integrar. Las actas de reunión registrarán decisiones, cambios y tareas. Los documentos académicos usarán un gestor bibliográfico para mantener el estilo IEEE y evitar referencias sin correspondencia en el texto.
+
+El rigor se apoyará en una matriz que relacione cada objetivo con requisitos, tareas, casos de prueba y evidencias. Un elemento solo pasará a terminado cuando cumpla su criterio de aceptación, incluya pruebas, documentación mínima y no introduzca defectos críticos. Al final de cada iteración se medirán requisitos obligatorios completados, pruebas superadas, defectos abiertos, desviación de esfuerzo y riesgos activos.
+
+\needspace{6\baselineskip}
+\subsection{Validación}\label{sec:1-4-3}
+
+La validación combinará: pruebas unitarias para reglas; pruebas de integración para relaciones y workflows; pruebas de autorización con perfiles incompatibles; pruebas de rendimiento con datos sintéticos; restauración de una copia; y pruebas de tareas con coordinación y monitores. Las incidencias se clasificarán por severidad. La aceptación del producto mínimo exigirá que todos los requisitos M tengan evidencia, que no existan accesos indebidos conocidos y que los defectos críticos estén cerrados.
+
+Las revisiones con la directora del TFG confirmarán alcance, decisión tecnológica e incrementos. La tutora de GEP validará la coherencia de la gestión del proyecto. Si no se dispone de usuarios reales, la evaluación de usabilidad se declarará exploratoria y se evitarán conclusiones generalizables. Esta separación entre evidencia, interpretación y limitaciones permitirá valorar el resultado con criterios transparentes.
+
