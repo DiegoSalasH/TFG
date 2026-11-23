@@ -210,20 +210,114 @@ RF09 & Generar indicadores agregados y habilitar un portal familiar limitado. & 
 \caption{Requisitos funcionales}\label{tab:4}
 \end{table}
 
-Los requisitos no funcionales establecen las condiciones de seguridad, rendimiento, recuperación, mantenibilidad, usabilidad y accesibilidad que deberá cumplir el prototipo.
+Los requisitos no funcionales establecen las condiciones de seguridad, privacidad, rendimiento, recuperación, mantenibilidad, usabilidad y accesibilidad que deberá cumplir el prototipo. Se especifican con una versión reducida de la plantilla Volere~\cite{ref37}: cada ficha relaciona el requisito con una característica de calidad de ISO/IEC 25010~\cite{ref12}, explica por qué es necesario, fija un criterio de aceptación y define cómo se comprobará. Las Tablas~\ref{tab:rnf01} a~\ref{tab:rnf06} recogen los seis requisitos.
 
+\needspace{14\baselineskip}
 \begin{table}[H]
 \centering\small
-\begin{tabularx}{\textwidth}{>{\hsize=0.334\hsize\raggedright\arraybackslash}X>{\hsize=2.006\hsize\raggedright\arraybackslash}X>{\hsize=0.436\hsize\raggedright\arraybackslash}X>{\hsize=1.224\hsize\raggedright\arraybackslash}X}
+\begin{tabularx}{\textwidth}{>{\hsize=0.385\hsize\raggedright\arraybackslash}X>{\hsize=1.615\hsize\raggedright\arraybackslash}X}
 \toprule
-\rowcolor{cabeceratabla} \textbf{ID} & \textbf{Requisito resumido} & \textbf{Prior.} & \textbf{Comprobación} \\
+\rowcolor{cabeceratabla} \textbf{Campo} & \textbf{Especificación} \\
 \midrule
-RNF01 & Seguridad y privacidad: HTTPS, acceso individual, mínimo privilegio, auditoría y datos sintéticos. & M & Pruebas de acceso indebido y revisión de exportaciones~\cite{ref02,ref03,ref04}. \\
-RNF02 & Rendimiento, recuperación y mantenibilidad: \textless{}2 s en el 95 \% de operaciones; copias y extensiones versionadas. & M & Prueba con 10.000 alumnos, restauración y guía de instalación. \\
-RNF03 & Usabilidad y accesibilidad: asistencia y entrega en tres acciones; WCAG 2.2 AA cuando aplique. & S & Prueba de tareas y SUS $\geq$ 68. \\
+Requisito de calidad & Seguridad (confidencialidad, integridad y trazabilidad). \\
+Prioridad & M \\
+Descripción & El prototipo utiliza autenticación individual, mínimo privilegio por rol y actividad, HTTPS en el despliegue y auditoría de las acciones sensibles. \\
+Justificación & El sistema trata datos de menores y de personas autorizadas. Una consulta sin control puede exponer información que no corresponde al usuario, y sin auditoría no se puede reconstruir quién hizo cada cambio~\cite{ref02,ref03}. \\
+Criterio de aceptación & Ningún perfil incompatible accede a datos ajenos en las pruebas de acceso, y cada acción sensible conserva autor, fecha y hora. \\
+Método de evaluación & Escenarios de acceso indebido, revisión de roles y revisión de los registros de auditoría. \\
 \bottomrule
 \end{tabularx}
-\caption{Requisitos no funcionales}\label{tab:5}
+\caption{Ficha Volere del requisito RNF01: seguridad}\label{tab:rnf01}
+\end{table}
+
+\needspace{14\baselineskip}
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.385\hsize\raggedright\arraybackslash}X>{\hsize=1.615\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Campo} & \textbf{Especificación} \\
+\midrule
+Requisito de calidad & Seguridad (confidencialidad) y protección de datos desde el diseño. \\
+Prioridad & M \\
+Descripción & El sistema guarda solo los datos necesarios para cada finalidad, exporta únicamente la información del ámbito autorizado y, durante el desarrollo y las pruebas, trabaja exclusivamente con datos sintéticos. \\
+Justificación & El RGPD exige minimización y protección de datos desde el diseño~\cite{ref03}, y la AEPD lo concreta para centros educativos y plataformas educativas~\cite{ref02,ref04}. \\
+Criterio de aceptación & No se usan datos reales de menores; las exportaciones no contienen campos fuera del ámbito autorizado; el sistema guarda la referencia de la persona autorizada y el método de comprobación, pero no una copia del documento de identidad. \\
+Método de evaluación & Revisión de las exportaciones, de los campos del modelo de datos y del contenido del repositorio. \\
+\bottomrule
+\end{tabularx}
+\caption{Ficha Volere del requisito RNF02: privacidad}\label{tab:rnf02}
+\end{table}
+
+\needspace{14\baselineskip}
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.385\hsize\raggedright\arraybackslash}X>{\hsize=1.615\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Campo} & \textbf{Especificación} \\
+\midrule
+Requisito de calidad & Eficiencia de desempeño (comportamiento temporal). \\
+Prioridad & M \\
+Descripción & El 95 \% de las operaciones de consulta y registro responde en menos de dos segundos con un conjunto sintético de hasta 10.000 alumnos. \\
+Justificación & El monitor debe registrar la asistencia y la custodia durante una franja de tiempo limitada, al final de la actividad. \\
+Criterio de aceptación & El 95 \% de las operaciones medidas cumple el umbral de dos segundos. \\
+Método de evaluación & Prueba de carga con datos sintéticos y medición de tiempos de respuesta. \\
+\bottomrule
+\end{tabularx}
+\caption{Ficha Volere del requisito RNF03: rendimiento}\label{tab:rnf03}
+\end{table}
+
+\needspace{14\baselineskip}
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.385\hsize\raggedright\arraybackslash}X>{\hsize=1.615\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Campo} & \textbf{Especificación} \\
+\midrule
+Requisito de calidad & Fiabilidad (recuperabilidad). \\
+Prioridad & M \\
+Descripción & Se documenta y se prueba una copia de seguridad de la base de datos y su restauración. \\
+Justificación & Una recuperación que no se ha probado no garantiza que los registros de asistencia, custodia e incidencias se puedan recuperar tras un fallo. \\
+Criterio de aceptación & La restauración de prueba recupera todos los datos sintéticos de la copia. \\
+Método de evaluación & Restauración de una copia en un entorno de prueba y comparación de los datos recuperados. \\
+\bottomrule
+\end{tabularx}
+\caption{Ficha Volere del requisito RNF04: recuperación}\label{tab:rnf04}
+\end{table}
+
+\needspace{14\baselineskip}
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.385\hsize\raggedright\arraybackslash}X>{\hsize=1.615\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Campo} & \textbf{Especificación} \\
+\midrule
+Requisito de calidad & Mantenibilidad (modularidad y modificabilidad). \\
+Prioridad & M \\
+Descripción & Las extensiones se versionan y se mantienen separadas del núcleo de la plataforma, y existe una guía de instalación o configuración. \\
+Justificación & Una extensión sin versión, o que modifica el núcleo, dificulta actualizar la plataforma y mantener la solución. \\
+Criterio de aceptación & El paquete de extensión se instala desde el repositorio siguiendo la guía, y cada versión queda registrada. \\
+Método de evaluación & Revisión del repositorio, del registro de versiones y de la guía de instalación. \\
+\bottomrule
+\end{tabularx}
+\caption{Ficha Volere del requisito RNF05: mantenibilidad}\label{tab:rnf05}
+\end{table}
+
+\needspace{14\baselineskip}
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\hsize=0.385\hsize\raggedright\arraybackslash}X>{\hsize=1.615\hsize\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{cabeceratabla} \textbf{Campo} & \textbf{Especificación} \\
+\midrule
+Requisito de calidad & Usabilidad (operabilidad y accesibilidad). \\
+Prioridad & S \\
+Descripción & El registro de asistencia y entrega puede completarse en tres acciones principales o menos; la interfaz cumple WCAG 2.2 AA~\cite{ref39} cuando corresponda. \\
+Justificación & Los monitores pueden tener poca experiencia con un CRM y trabajan al final de la jornada escolar. Una interfaz lenta o confusa aumenta el riesgo de registros erróneos. \\
+Criterio de aceptación & Las tareas definidas se completan con éxito y la puntuación SUS~\cite{ref40} media es igual o superior a 68~\cite{ref41}; no se detectan incumplimientos críticos de accesibilidad aplicables. \\
+Método de evaluación & Prueba de tareas con perfiles representativos, cuestionario SUS y revisión heurística y de contraste de la interfaz. \\
+\bottomrule
+\end{tabularx}
+\caption{Ficha Volere del requisito RNF06: usabilidad y accesibilidad}\label{tab:rnf06}
 \end{table}
 
 \begin{table}[H]

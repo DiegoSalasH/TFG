@@ -60,6 +60,16 @@
 \usepackage{needspace}
 \usepackage{cite}
 \usepackage{tcolorbox}
+% Figuras apaisadas (diagramas de la base de datos)
+\usepackage{rotating}
+% Listados de código (DDL del diseño físico)
+\usepackage{listings}
+\renewcommand{\lstlistingname}{Listado}
+\AtBeginDocument{\counterwithout{lstlisting}{chapter}}
+\lstset{basicstyle=\ttfamily\footnotesize, columns=fullflexible, keepspaces=true,
+  frame=tb, framesep=4pt, rulecolor=\color{black!40}, keywordstyle=\bfseries,
+  commentstyle=\color{black!60}\itshape, breaklines=true, aboveskip=8pt, belowskip=8pt,
+  morekeywords={PERSISTENT, ENGINE, CHARSET, COLLATE, TINYINT, DATETIME, TEXT, IF, CONCAT}}
 \usepackage[hidelinks]{hyperref}
 \usepackage{xurl}
 
@@ -144,7 +154,8 @@
 \input{capitulos/02_planificacion}
 \input{capitulos/03_presupuesto}
 \input{capitulos/04_especificacion}
-\input{capitulos/05_sostenibilidad}
+\input{capitulos/05_diseno}
+\input{capitulos/06_sostenibilidad}
 
 % ============================================================================
 % Bibliografía

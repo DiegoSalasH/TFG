@@ -3,7 +3,7 @@
 
 \chapter{Especificación}\label{sec:4}
 
-Este apartado especifica el producto mínimo del TFG para la gestión segura de actividades extraescolares de primaria. Toma como línea base los requisitos del apartado~\ref{sec:1-3-4} y concreta el comportamiento del sistema mediante casos de uso~\cite{ref36}, un modelo conceptual en UML~\cite{ref35}, restricciones de integridad en OCL~\cite{ref34}, plantillas Volere para los requisitos no funcionales~\cite{ref37}, historias de usuario~\cite{ref38} y pruebas. Todos los ejemplos de validación usan datos sintéticos.
+Este apartado especifica el producto mínimo del TFG para la gestión segura de actividades extraescolares de primaria. Toma como línea base los requisitos del apartado~\ref{sec:1-3-4} y concreta el comportamiento del sistema mediante casos de uso~\cite{ref36}, un modelo conceptual en UML~\cite{ref35}, restricciones de integridad en OCL~\cite{ref34}, historias de usuario~\cite{ref38} y pruebas. Los requisitos no funcionales se especifican con fichas Volere en el apartado~\ref{sec:1-3-4}. Todos los ejemplos de validación usan datos sintéticos.
 
 La especificación cubre la información de alumnos, contactos y autorizaciones; la preparación de sesiones; el registro de asistencia; la custodia y entrega; la gestión y comunicación de incidencias; y la consulta de historial con control de permisos. RF08 y RF09 se mantienen como incrementos posteriores: intercambio CSV autorizado, indicadores agregados y un portal familiar limitado.
 
@@ -14,7 +14,7 @@ La especificación cubre la información de alumnos, contactos y autorizaciones;
 \rowcolor{cabeceratabla} \textbf{Elemento} & \textbf{Tratamiento en la especificación} \\
 \midrule
 Requisitos funcionales & Se detallan en casos de uso, historias de usuario, modelo conceptual y restricciones OCL. \\
-Requisitos no funcionales & Se detallan mediante fichas Volere con criterio de aceptación y método de evaluación. \\
+Requisitos no funcionales & Se detallan en el apartado~\ref{sec:1-3-4} mediante fichas Volere con criterio de aceptación y método de evaluación. \\
 Validación & Se define una evidencia por requisito con escenarios sintéticos y perfiles incompatibles. \\
 \bottomrule
 \end{tabularx}
@@ -75,7 +75,7 @@ Precondición & El usuario dispone de permiso sobre el alumno o se trata de un a
 Flujo principal & 1. El usuario crea o localiza la ficha del alumno. \newline 2. Registra o actualiza los contactos responsables. \newline 3. Registra la inscripción en una actividad y su estado. \newline 4. Añade una autorización de recogida con fechas de vigencia y estado. \newline 5. El sistema valida los campos obligatorios y guarda el cambio con autor y fecha. \\
 Extensiones & 4a. La fecha final es anterior a la inicial: el sistema informa del error y no guarda la autorización. \newline 5a. Falta identificador, nombre o contacto responsable: el sistema impide guardar la ficha. \\
 Postcondición & La ficha queda disponible para sesiones futuras; solo las autorizaciones activas y vigentes pueden usarse en una entrega. \\
-Requisitos & RF01, RNF01 \\
+Requisitos & RF01, RNF01, RNF02 \\
 \bottomrule
 \end{tabularx}
 \caption{Ficha del caso de uso CU01}\label{tab:25}
@@ -96,7 +96,7 @@ Precondición & La actividad, el grupo y las inscripciones existen y están actu
 Flujo principal & 1. La coordinación selecciona actividad y grupo. \newline 2. Crea la sesión con fecha, hora de inicio y fin. \newline 3. El sistema valida que el inicio sea anterior al fin. \newline 4. El sistema genera la lista desde las inscripciones activas de la actividad. \newline 5. La coordinación publica la sesión para el monitor asignado. \\
 Extensiones & 3a. El intervalo de la sesión no es válido: el sistema no permite crearla. \newline 4a. Una inscripción está cancelada o pertenece a otra actividad: no se incorpora a la lista. \\
 Postcondición & La sesión queda preparada con una lista coherente de alumnos previstos. \\
-Requisitos & RF02, RNF01 \\
+Requisitos & RF02, RNF01, RNF02 \\
 \bottomrule
 \end{tabularx}
 \caption{Ficha del caso de uso CU02}\label{tab:26}
@@ -117,7 +117,7 @@ Precondición & Existe una sesión publicada, el monitor está asignado y el alu
 Flujo principal & 1. El monitor abre la sesión. \newline 2. Selecciona el estado de cada alumno: presente, ausente, retraso o ausencia justificada. \newline 3. Añade motivo cuando el estado lo requiere. \newline 4. El sistema registra hora y usuario. \newline 5. El monitor confirma el resumen de la sesión. \\
 Extensiones & 2a. Ya existe un registro para el mismo alumno y sesión: el sistema muestra el registro existente y permite una corrección trazable. \newline 3a. El estado requiere motivo y este falta: el sistema solicita completarlo. \\
 Postcondición & Cada alumno de la lista tiene un estado controlado y no hay duplicados activos para la misma sesión. \\
-Requisitos & RF03, RNF01, RNF03 \\
+Requisitos & RF03, RNF01, RNF02, RNF06 \\
 \bottomrule
 \end{tabularx}
 \caption{Ficha del caso de uso CU03}\label{tab:27}
@@ -138,7 +138,7 @@ Precondición & La sesión ha finalizado o está en fase de entrega; el alumno f
 Flujo principal & 1. El monitor selecciona al alumno pendiente de entrega. \newline 2. Selecciona o identifica a la persona receptora. \newline 3. El sistema consulta una autorización activa y vigente para ese alumno. \newline 4. Comprueba que no existe otra entrega confirmada. \newline 5. Registra hora, responsable y resultado de la entrega. \newline 6. Muestra confirmación al monitor. \\
 Extensiones & 3a. La persona no está autorizada o la autorización está vencida: el sistema bloquea la entrega y registra la excepción. \newline 4a. Ya existe una entrega confirmada: el sistema impide una segunda confirmación y muestra el historial. \\
 Postcondición & La entrega autorizada queda asociada a alumno, sesión, receptor y responsable; una excepción queda escalada. \\
-Requisitos & RF04, RNF01, RNF03 \\
+Requisitos & RF04, RNF01, RNF02, RNF06 \\
 \bottomrule
 \end{tabularx}
 \caption{Ficha del caso de uso CU04}\label{tab:28}
@@ -159,7 +159,7 @@ Precondición & El usuario pertenece al ámbito de la actividad o sesión relaci
 Flujo principal & 1. El usuario abre una incidencia y selecciona tipo y prioridad. \newline 2. Describe el hecho de forma objetiva y lo vincula a alumno o sesión cuando procede. \newline 3. El sistema asigna estado inicial y conserva autor y fecha. \newline 4. Coordinación asigna responsable y registra la actuación o el escalado. \newline 5. Coordinación cierra la incidencia cuando la actuación está documentada. \\
 Extensiones & 2a. Falta la información mínima: el sistema solicita completar tipo, prioridad y descripción. \newline 5a. No existe responsable o actuación: el sistema no permite cerrar la incidencia. \\
 Postcondición & La incidencia mantiene su secuencia de estados, responsables y actuaciones. \\
-Requisitos & RF05, RNF01 \\
+Requisitos & RF05, RNF01, RNF02 \\
 \bottomrule
 \end{tabularx}
 \caption{Ficha del caso de uso CU05}\label{tab:29}
@@ -180,7 +180,7 @@ Precondición & Existe una incidencia registrada y la coordinación tiene permis
 Flujo principal & 1. Coordinación revisa prioridad, actuaciones y destinatarios posibles. \newline 2. Selecciona el destinatario autorizado y el canal permitido. \newline 3. Redacta o valida el mensaje con la información necesaria. \newline 4. El sistema registra el envío, la fecha y el usuario responsable. \newline 5. Registra el acuse cuando se recibe. \\
 Extensiones & 2a. El destinatario no está vinculado o autorizado: el sistema impide el envío. \newline 3a. El mensaje contiene datos fuera del ámbito: la coordinación debe revisarlo antes de confirmar. \\
 Postcondición & La comunicación queda vinculada a la incidencia y a un destinatario identificable. \\
-Requisitos & RF06, RNF01 \\
+Requisitos & RF06, RNF01, RNF02 \\
 \bottomrule
 \end{tabularx}
 \caption{Ficha del caso de uso CU06}\label{tab:30}
@@ -201,7 +201,7 @@ Precondición & El usuario ha iniciado sesión y posee rol y ámbito configurado
 Flujo principal & 1. El usuario busca un alumno, sesión o incidencia dentro de su ámbito. \newline 2. El sistema comprueba el rol, la actividad y la finalidad de consulta. \newline 3. Recupera la secuencia de asistencia, custodia, incidencias y comunicaciones permitidas. \newline 4. El usuario consulta el detalle o solicita una exportación autorizada. \newline 5. El sistema conserva la acción de consulta o exportación en la auditoría. \\
 Extensiones & 2a. El usuario intenta acceder a un grupo ajeno: el sistema deniega el acceso. \newline 4a. La exportación contiene datos innecesarios: el sistema limita los campos al ámbito autorizado. \\
 Postcondición & El historial se muestra ordenado temporalmente y sin exponer datos ajenos. \\
-Requisitos & RF07, RNF01 \\
+Requisitos & RF07, RNF01, RNF02 \\
 \bottomrule
 \end{tabularx}
 \caption{Ficha del caso de uso CU07}\label{tab:31}
@@ -264,68 +264,6 @@ OCL08 & Comunicación con destinatario & {\footnotesize\ttfamily context Comunic
 \end{table}
 
 \needspace{6\baselineskip}
-\section{Especificación de requisitos no funcionales}\label{sec:4-3}
-
-Los requisitos no funcionales se especifican con una versión reducida de la plantilla Volere~\cite{ref37}. Cada ficha relaciona el requisito con una característica de calidad de ISO/IEC 25010~\cite{ref12}, explica por qué es necesario, fija un criterio de aceptación y define cómo se comprobará. Los requisitos funcionales se concretan en los casos de uso del apartado~\ref{sec:4-1}.
-
-\needspace{17\baselineskip}
-\subsection{RNF01 Seguridad y privacidad}\label{sec:4-3-1}
-
-\begin{table}[H]
-\centering\small
-\begin{tabularx}{\textwidth}{>{\hsize=0.385\hsize\raggedright\arraybackslash}X>{\hsize=1.615\hsize\raggedright\arraybackslash}X}
-\toprule
-\rowcolor{cabeceratabla} \textbf{Campo} & \textbf{Especificación} \\
-\midrule
-Requisito de calidad & Seguridad (confidencialidad, integridad y trazabilidad). \\
-Descripción & El prototipo utiliza autenticación individual, mínimo privilegio, HTTPS en el despliegue y auditoría de acciones sensibles. \\
-Justificación & El sistema trata datos de menores y de personas autorizadas; una consulta o exportación sin control puede exponer información que no corresponde al usuario~\cite{ref02,ref03}. \\
-Criterio de aceptación & Prueba de acceso con perfiles incompatibles y revisión de los registros de auditoría y exportaciones. No se usan datos reales de menores. \\
-Método de evaluación & Escenarios de acceso indebido, revisión de roles y comprobación de que cada acción sensible conserva autor, fecha y hora. \\
-\bottomrule
-\end{tabularx}
-\caption{Ficha Volere del requisito RNF01}\label{tab:34}
-\end{table}
-
-\needspace{17\baselineskip}
-\subsection{RNF02 Rendimiento, recuperación y mantenibilidad}\label{sec:4-3-2}
-
-\begin{table}[H]
-\centering\small
-\begin{tabularx}{\textwidth}{>{\hsize=0.381\hsize\raggedright\arraybackslash}X>{\hsize=1.619\hsize\raggedright\arraybackslash}X}
-\toprule
-\rowcolor{cabeceratabla} \textbf{Campo} & \textbf{Especificación} \\
-\midrule
-Requisito de calidad & Eficiencia de desempeño, fiabilidad y mantenibilidad. \\
-Descripción & El 95 \% de operaciones de consulta y registro responde en menos de dos segundos con un conjunto sintético de hasta 10.000 alumnos; se documenta una copia, una restauración y el versionado de extensiones. \\
-Justificación & El monitor debe registrar asistencia y custodia durante una franja de tiempo limitada. Una recuperación no probada o una extensión sin versión dificulta mantener la solución. \\
-Criterio de aceptación & El 95 \% de operaciones medidas cumple el umbral; la restauración de prueba recupera los datos sintéticos y existe una guía de instalación o configuración. \\
-Método de evaluación & Prueba de carga, medición de tiempos, restauración en entorno de prueba y revisión del repositorio o registro de versiones. \\
-\bottomrule
-\end{tabularx}
-\caption{Ficha Volere del requisito RNF02}\label{tab:35}
-\end{table}
-
-\needspace{17\baselineskip}
-\subsection{RNF03 Usabilidad y accesibilidad}\label{sec:4-3-3}
-
-\begin{table}[H]
-\centering\small
-\begin{tabularx}{\textwidth}{>{\hsize=0.381\hsize\raggedright\arraybackslash}X>{\hsize=1.619\hsize\raggedright\arraybackslash}X}
-\toprule
-\rowcolor{cabeceratabla} \textbf{Campo} & \textbf{Especificación} \\
-\midrule
-Requisito de calidad & Usabilidad (operabilidad y accesibilidad). \\
-Descripción & El registro de asistencia y entrega puede completarse en tres acciones principales o menos; la interfaz cumple WCAG 2.2 AA~\cite{ref39} cuando corresponda. \\
-Justificación & Los monitores pueden tener poca experiencia con un CRM y trabajan al final de la jornada escolar. Una interfaz lenta o confusa aumenta el riesgo de registros erróneos. \\
-Criterio de aceptación & Las tareas definidas se completan con éxito y la puntuación SUS~\cite{ref40} media es igual o superior a 68~\cite{ref41}; no se detectan incumplimientos críticos de accesibilidad aplicables. \\
-Método de evaluación & Prueba de tareas con perfiles representativos, cuestionario SUS y revisión heurística y de contraste de la interfaz. \\
-\bottomrule
-\end{tabularx}
-\caption{Ficha Volere del requisito RNF03}\label{tab:36}
-\end{table}
-
-\needspace{6\baselineskip}
 \section{Historias de usuario}\label{sec:4-4}
 
 Las historias de usuario~\cite{ref38} convierten los requisitos y casos de uso en elementos verificables del backlog. La trazabilidad indica el caso de uso, los requisitos relacionados y la prioridad definida en el apartado~\ref{sec:1-3-4}. Los criterios de aceptación se comprobarán con las pruebas del apartado~\ref{sec:4-5}.
@@ -384,7 +322,7 @@ P05 Excepción de entrega & RF04, HU06 & Receptor no autorizado o autorización 
 P06 Incidencia & RF05, HU07-HU08, OCL05 & Incidencia prioritaria e intento de cierre sin actuación. & El cierre se rechaza hasta registrar responsable y actuación. \\
 P07 Comunicación & RF06, HU09, OCL08 & Incidencia registrada y destinatarios autorizado y no autorizado. & Solo se envía al destinatario válido y queda trazabilidad. \\
 P08 Permisos & RF07, HU10-HU11, OCL06 & Dos monitores con grupos distintos y perfil de coordinación. & Acceso ajeno denegado y consulta autorizada auditada. \\
-P09 Calidad e incrementos & RNF01-RNF03, RF08-RF09, HU12-HU13 & Carga sintética, exportación, prueba de tareas y accesos. & Métricas, accesos y resultados de tareas documentados. \\
+P09 Calidad e incrementos & RNF01-RNF06, RF08-RF09, HU12-HU13 & Carga sintética, exportación, prueba de tareas y accesos. & Métricas, accesos y resultados de tareas documentados. \\
 \bottomrule
 \end{tabularx}
 \caption{Matriz de pruebas y evidencias}\label{tab:39}

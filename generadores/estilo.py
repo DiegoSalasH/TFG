@@ -15,7 +15,8 @@ from PIL import Image, ImageDraw, ImageFont
 # --- Rutas -------------------------------------------------------------------
 RAIZ = Path(__file__).resolve().parent.parent
 FUENTES = Path(__file__).resolve().parent / "fuentes"
-SALIDA = RAIZ / "Documentation" / "Docu_Final" / "Memoria" / "imagenes"
+# La memoria se escribe en LaTeX (D-07): las figuras van junto al .tex
+SALIDA = RAIZ / "Documentation" / "Docu_Final" / "Memoria" / "Latex_Memoria" / "imagenes"
 
 # --- Resolución --------------------------------------------------------------
 # Se dibuja a escala 2 para que el PNG se vea nítido al insertarlo en la memoria.
